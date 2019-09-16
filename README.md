@@ -41,13 +41,8 @@ http://59.110.164.254:8066/login.html  admin/admin
 </table>
 
 # 技术介绍
-<table>
-	<tr>
-		<td><img src="https://images.gitee.com/uploads/images/2019/0523/091013_fffdcf8b_869801.png "屏幕截图.png"></td>
-		<td><img src="https://images.gitee.com/uploads/images/2019/0531/151440_a763b84e_869801.png "屏幕截图.png"></td>
-    </tr>
-	
-</table>
+![image.png](https://upload-images.jianshu.io/upload_images/17103873-bec64504e9d9fdc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 # **功能介绍** 
 - 统一安全认证中心
@@ -135,31 +130,12 @@ http://59.110.164.254:8066/login.html  admin/admin
 </table>
  
 #  APM监控
-<table>
-	<tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0330/105610_52def254_869801.png "屏幕截图.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0330/105638_5c7ab9ac_869801.png "屏幕截图.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0330/105713_c9c94365_869801.png "屏幕截图.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0330/105736_ac478159_869801.png "屏幕截图.png"/></td>
-    </tr>
-     
-</table>
+ 
+![image.png](https://upload-images.jianshu.io/upload_images/17103873-1fd5f5ad339f81d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://upload-images.jianshu.io/upload_images/17103873-e3b293a71b100b9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 # 系统监控 #
-<table>
-	<tr>
-		<td><img src="https://images.gitee.com/uploads/images/2019/0523/085501_ee047496_869801.png "屏幕截图.png""/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0401/230332_f777ea8d_869801.png "屏幕截图.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0401/230430_3eb6b5e0_869801.png "屏幕截图.png"/></td>
-    </tr>
-	<tr>
-		<td><img src="https://images.gitee.com/uploads/images/2019/0722/164150_6c0ce093_869801.png "屏幕截图.png"/></td>
-		<td><img src="https://images.gitee.com/uploads/images/2019/0722/163241_9b29852f_869801.png "屏幕截图.png""/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0722/163356_08ec244d_869801.png "屏幕截图.png"/></td>
-    </tr>
-</table>
+![image.png](https://upload-images.jianshu.io/upload_images/17103873-dde6f10a37ae6e5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)|![image.png](https://upload-images.jianshu.io/upload_images/17103873-a8c2ea37b57c5119.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 #  灰度发布功能演示   
  
