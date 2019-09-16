@@ -1,0 +1,87 @@
+<!-- route表单弹窗 -->
+<form id="route-form" lay-filter="route-form" class="layui-form model-form">
+    <input name="id" type="hidden"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label">URI</label>
+        <div class="layui-input-block">
+            <input name="uri" placeholder="请输入URI" type="text" class="layui-input" maxlength="180"
+                   lay-verify="required" required/>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">Predicates</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入JSON格式" class="layui-textarea" name="predicates" maxlength="180"></textarea>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">Filters</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入JSON格式" class="layui-textarea" name="filters" maxlength="180"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">Order</label>
+        <div class="layui-input-block">
+            <input name="order" placeholder="请输入排序号" type="number" class="layui-input" lay-verify="required" required maxlength="180" />
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">Description</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入描述" class="layui-textarea" name="description" maxlength="180"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item model-form-footer">
+        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button">取消</button>
+        <button class="layui-btn" lay-filter="route-form-submit" lay-submit>保存</button>
+    </div>
+
+</form>
+
+
+<script>
+    layui.use(['layer', 'admin', 'form', 'formSelects'],function () {
+        var layer = layui.layer;
+        var admin = layui.admin;
+        var form = layui.form;
+        var formSelects = layui.formSelects;
+
+        // 表单提交事件
+        form.on('submit(route-form-submit)', function (data) {
+
+            var contact = new Object();
+            contact.filters = eval(data.field.filters) ;
+            contact.predicates = eval(data.field.predicates);
+            contact.id = data.field.id;
+            contact.uri = data.field.uri;
+            contact.order = data.field.order;
+            contact.description = data.field.description;
+
+            console.log(  contact  );
+            console.log( JSON.stringify(contact , null , '\t') );
+            layer.load(2);
+
+            admin.req('route/add', JSON.stringify(contact , null , '\t'), function (data) {
+                if (data.resp_code == 0) {
+                    layer.closeAll('loading');
+                    layer.msg(data.resp_msg, {icon: 1, time: 500});
+                    admin.finishPopupCenter();
+                } else {
+                    layer.closeAll('loading');
+                    layer.msg(data.resp_msg, {icon: 2, time: 500});
+                }
+            }, 'POST');
+            return false;
+        });
+
+    });
+
+</script>

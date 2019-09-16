@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.open.capacity</groupId>
+    <artifactId>open-capacity-platform</artifactId>
+    <version>2.0.1</version>
+  </parent>
+  <artifactId>inner-intergration</artifactId>
+  <packaging>pom</packaging>
+  <description>内部支撑工具</description>
+    
+  <modules>
+  	<!-- 关系型数据库配置-->
+  	<module>db-spring-boot-starter</module>
+  	<!-- 非关系型数据库配置-->
+  	<module>redis-spring-boot-starter</module>
+  	<!-- 日志统一配置 -->
+  	<module>log-spring-boot-starter</module>
+  	<!-- 公共实体类配置 -->
+  	<module>common-spring-boot-starter</module>
+  	<!-- API文档配置 -->
+  	<module>swagger-spring-boot-starter</module>
+  	<!-- 资源服务器配置 -->
+  	<module>uaa-client-spring-boot-starter</module>
+  	<!-- 认证服务器配置 -->
+  	<module>uaa-server-spring-boot-starter</module>
+  	<!-- mq -->
+  	<module>rabbitmq-spring-boot-starter</module>
+  </modules>
+</project>

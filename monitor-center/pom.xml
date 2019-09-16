@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.open.capacity</groupId>
+    <artifactId>open-capacity-platform</artifactId>
+    <version>2.0.1</version>
+  </parent>
+  <artifactId>monitor-center</artifactId>
+  <packaging>pom</packaging>
+  <description>springboot监控,log tracing,lcn事物管理中心,调用链监控</description>
+  <modules>
+  	
+  	<!-- springboot admin监控 -->
+	<module>admin-server</module>
+	<!-- 日志中心 -->
+  	<module>log-center</module>
+  	<!-- 事物中心 -->
+  	<module>transaction-center</module>
+  	<!-- zipkin链路跟踪 -->
+	<module>zipkin-center</module>
+  </modules>
+</project>

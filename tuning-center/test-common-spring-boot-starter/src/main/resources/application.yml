@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: test-log-center
+  
+
+mybatis-plus:        
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
+  mapper-locations: classpath*:com/open/**/dao/*.xml  
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

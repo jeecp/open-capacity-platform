@@ -1,0 +1,21 @@
+#端口
+server:
+  port: 9200
+
+#服务名称
+spring:
+  application:
+      name: new-api-gateway
+ 
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+ 
+
+ 

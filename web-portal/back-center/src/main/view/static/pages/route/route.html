@@ -1,0 +1,178 @@
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h2 class="header-title">路由管理</h2>
+        <span class="layui-breadcrumb pull-right">
+          <a href="#!home_console">首页</a>
+          <a><cite>路由中心</cite></a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form toolbar">
+            <button id="route-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+            <button id="synch-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe9aa;</i>同步</button>
+            <button id="route-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+        </div>
+
+        <!-- 数据表格 -->
+        <table class="layui-table" id="route-table" lay-filter="route-table"></table>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="route-table-bar">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<!-- 表格状态列 -->
+<script type="text/html" id="route-tpl-state">
+    <input type="checkbox" lay-filter="route-tpl-state" value="{{d.id}}" lay-skin="switch" lay-text="正常|锁定"
+           {{d.delFlag==0?'checked':''}}/>
+</script>
+
+<script>
+
+    layui.use(['form', 'table', 'util', 'config', 'admin'],function () {
+        var form = layui.form;
+        var table = layui.table;
+        var config = layui.config;
+        var layer = layui.layer;
+        var util = layui.util;
+        var admin = layui.admin;
+
+        // 渲染表格
+        table.render({
+            elem: '#route-table',
+            url: config.base_server + 'route/findAll',
+            method: 'GET',
+            where: {
+                access_token: config.getToken().access_token
+            },
+            page: true,
+            cols: [[
+                {type: 'numbers'},
+                {field: 'id', sort: true, title: '编号'},
+                {field: 'uri', sort: true, title: 'URI'},
+                {field: 'predicates', sort: true, title: '路由断言'},
+                {field: 'filters', sort: true, title: '路由过滤'},
+                {field: 'order', sort: true, title: '排序号'},
+                {field: 'description', sort: true, title: '路由描述'},
+                {field: 'delFlag', sort: true, templet: '#route-tpl-state', title: '状态',width: 150},
+                // {
+                //     field: 'delFlag', width: 80, align: 'center', templet: function (d) {
+                //         if (d.delFlag == 0) {
+                //             return '<span class="layui-badge layui-bg-gray">否</span>';
+                //         }
+                //         if (d.delFlag == 1) {
+                //             return '<span class="layui-badge layui-bg-blue">是</span>';
+                //         }
+                //     }, title: '是否删除'
+                // },
+                {
+                    sort: true, templet: function (d) {
+                        return util.toDateString(d.createTime);
+                    }, title: '创建时间'
+                },
+                {
+                    sort: true, templet: function (d) {
+                        return util.toDateString(d.updateTime);
+                    }, title: '修改时间'
+                },
+                {align: 'center', width:80, toolbar: '#route-table-bar', title: '操作'}
+            ]]
+        });
+
+        // 工具条点击事件
+        table.on('tool(route-table)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+
+            if (layEvent === 'del') { // 删除
+                doDelete(obj);
+            }
+        });
+
+
+        // 删除
+        var doDelete = function (obj) {
+            layer.confirm('确定要删除吗？', function (i) {
+                layer.close(i);
+                layer.load(2);
+                admin.req('route/' + obj.data.id, {}, function (data) {
+                    layer.closeAll('loading');
+                    if (data.resp_code == 0) {
+                        layer.msg(data.resp_msg, {icon: 1, time: 500});
+                        obj.del();
+                    } else {
+                        layer.msg(data.resp_msg, {icon: 2, time: 500});
+                    }
+                }, 'DELETE');
+            });
+        };
+
+
+        // 搜索按钮点击事件
+        $('#route-btn-search').click(function () {
+            table.reload('route-table', {});
+        });
+
+
+        $('#synch-btn-search').click(function () {
+            layer.confirm('确定要同步吗？', function (i) {
+                layer.close(i);
+                layer.load(2);
+                admin.req('route/synchronization', {}, function (data) {
+                    layer.closeAll('loading');
+                    if (data.resp_code == 0) {
+                        layer.msg(data.resp_msg, {icon: 1, time: 500});
+                    } else {
+                        layer.msg(data.resp_msg, {icon: 2, time: 500});
+                    }
+                }, 'GET');
+            });
+        });
+
+
+        // 修改user状态
+        form.on('switch(route-tpl-state)', function (obj) {
+            layer.load(2);
+            admin.req('route/updateFlag', {
+                id: obj.elem.value,
+                flag: obj.elem.checked ? 0 : 1
+            }, function (data) {
+                layer.closeAll('loading');
+                if (data.resp_code == 0) {
+                    layer.msg(data.resp_msg, {icon: 1, time: 500});
+                    //table.reload('table-user', {});
+                } else {
+                    layer.msg(data.resp_msg, {icon: 2, time: 500});
+                    $(obj.elem).prop('checked', !obj.elem.checked);
+                    form.render('checkbox');
+                }
+            }, 'GET');
+        });
+
+
+        // 添加按钮点击事件
+        $('#route-btn-add').click(function () {
+            showEditModel();
+        });
+
+        //显示表单弹窗
+        var showEditModel = function (data) {
+            admin.putTempData('t_route', data);
+            var title = data ? '修改路由' : '添加路由';
+            admin.popupCenter({
+                title: title,
+                path: 'pages/route/route_form.html',
+                finish: function () {
+                    table.reload('route-table', {});
+                }
+            });
+        };
+
+
+
+    });
+
+
+</script>

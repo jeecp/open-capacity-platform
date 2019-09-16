@@ -1,0 +1,34 @@
+package ${package}.${pkgName}.entity;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+
+@Getter
+@Setter
+@Data
+public class ${className} implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+#foreach ($column in $columns)
+
+	#if($column.columnName == $pk.columnName)
+	#end
+	private $column.attrType $column.attrname;
+#end
+
+}

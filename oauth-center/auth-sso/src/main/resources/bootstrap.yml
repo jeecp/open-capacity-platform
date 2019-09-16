@@ -1,0 +1,24 @@
+#端口
+server:
+  port: 9997
+#  context-path: /clientOne #2.0不再使用此方式配置
+#服务名称
+spring:
+  application:
+    name: auth-sso
+  
+#eureka client配置
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1111/eureka/
+      #http://192.168.3.170:1111/eureka,http://192.168.3.171:1111/eureka,http://192.168.3.173:1111/eureka
+      #http://130.75.131.243:1111/eureka/,http://130.75.131.244:1111/eureka/,http://130.75.131.245:1111/eureka/  
+    registry-fetch-interval-seconds: 10  
+    instance-info-replication-interval-seconds: 10   
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+#    instance-id: ${spring.application.name}:${docker.ipAddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 5
+     

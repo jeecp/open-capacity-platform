@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.open.capacity</groupId>
+		<artifactId>open-capacity-platform</artifactId>
+		<version>2.0.1</version>
+	</parent>
+	<artifactId>oauth-center</artifactId>
+	<packaging>pom</packaging>
+	<description>OAuth2.0认证体系</description>
+
+	
+	<dependencies>
+
+		 <!-- 日志统一配置 -->
+		<dependency>
+			<groupId>com.open.capacity</groupId>
+			<artifactId>log-spring-boot-starter</artifactId>
+		</dependency>
+
+
+		<!-- 关系型数据库配置 -->
+		<dependency>
+			<groupId>com.open.capacity</groupId>
+			<artifactId>db-spring-boot-starter</artifactId>
+		</dependency>
+
+
+
+		<!-- 非关系型数据库配置 -->
+		<dependency>
+			<groupId>com.open.capacity</groupId>
+			<artifactId>redis-spring-boot-starter</artifactId>
+		</dependency>
+
+
+		<!-- 公共实体类配置 -->
+		<dependency>
+			<groupId>com.open.capacity</groupId>
+			<artifactId>common-spring-boot-starter</artifactId>
+		</dependency>
+		 
+
+		<!-- web守护进程配置 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+
+		<!-- API文档配置 -->
+		<dependency>
+			<groupId>com.open.capacity</groupId>
+			<artifactId>swagger-spring-boot-starter</artifactId>
+		</dependency>
+
+		 
+
+	</dependencies>
+
+
+
+
+	<modules>
+		<module>auth-server</module>
+		<module>auth-sso</module>
+	</modules>
+</project>
