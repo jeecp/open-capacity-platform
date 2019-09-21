@@ -23,20 +23,12 @@ public class TestController {
 		
 		log.info("ok");
 		CompletableFuture.runAsync(() -> {
-			
-				try {
-					
-					Thread.sleep(10000);
-					log.info("oook");
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			 log.info("oook");
 
 		}, new TraceableExecutorService(beanFactory,  Executors.newFixedThreadPool(10),
 		        // 'calculateTax' explicitly names the span - this param is optional
 		        "calculateTax"));
-		log.info("ok");
+		
 		return "ok" ;
 	}
 	

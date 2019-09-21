@@ -8,8 +8,6 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -53,8 +51,6 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
             + "refresh_token_validity, additional_information, autoapprove ,if_limit, limit_count    from oauth_client_details where `status` = 1 order by client_id " ;
 
    
-
-    private Logger logger =LoggerFactory.getLogger(RedisClientDetailsService.class) ;
 
     private RedisTemplate<String,Object> redisTemplate ;
     
@@ -114,10 +110,10 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
             if (clientDetails != null) {
                 // 写入redis缓存
                 redisTemplate.boundHashOps(UaaConstant.CACHE_CLIENT_KEY).put(clientId, JSONObject.toJSONString(clientDetails));
-                logger.info("缓存clientId:{},{}", clientId, clientDetails);
+                log.info("缓存clientId:{},{}", clientId, clientDetails);
             }
         }catch (NoSuchClientException e){
-            logger.error("clientId:{},{}", clientId, clientId );
+        	log.error("clientId:{},{}", clientId, clientId );
             throw new AuthenticationException ("应用不存在"){};
         }catch (InvalidClientException e) {
         	throw new AuthenticationException ("应用状态不合法"){};
@@ -160,11 +156,11 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
         if (redisTemplate.hasKey(UaaConstant.CACHE_CLIENT_KEY)) {
             return;
         }
-        logger.info("将oauth_client_details全表刷入redis");
+        log.info("将oauth_client_details全表刷入redis");
 
         List<ClientDetails> list = this.listClientDetails();
         if (CollectionUtils.isEmpty(list)) {
-            logger.error("oauth_client_details表数据为空，请检查");
+        	log.error("oauth_client_details表数据为空，请检查");
             return;
         }
 

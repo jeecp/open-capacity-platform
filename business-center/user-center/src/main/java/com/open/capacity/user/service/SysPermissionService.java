@@ -3,6 +3,7 @@ package com.open.capacity.user.service;
 import java.util.Map;
 import java.util.Set;
 
+import com.open.capacity.common.exception.service.ServiceException;
 import com.open.capacity.common.model.SysPermission;
 import com.open.capacity.common.web.PageResult;
 
@@ -18,38 +19,38 @@ public interface SysPermissionService {
 	 * @param roleIds
 	 * @return
 	 */
-	Set<SysPermission> findByRoleIds(Set<Long> roleIds);
+	Set<SysPermission> findByRoleIds(Set<Long> roleIds)  throws ServiceException;
 
 	/**
 	 * 保存权限
 	 * @param sysPermission
 	 */
-	void save(SysPermission sysPermission);
+	void save(SysPermission sysPermission)  throws ServiceException;
 
 	/**
 	 * 修改权限
 	 * @param sysPermission
 	 */
-	void update(SysPermission sysPermission);
+	void update(SysPermission sysPermission)  throws ServiceException;
 
 	/**
 	 * 删除权限
 	 * @param id
 	 */
-	void delete(Long id);
+	void delete(Long id)  throws ServiceException;
 
 	/**
 	 * 权限列表
 	 * @param params
 	 * @return
 	 */
-	PageResult<SysPermission> findPermissions(Map<String, Object> params);
+	PageResult<SysPermission> findPermissions(Map<String, Object> params)  throws ServiceException;
 
 	/**
 	 * 授权
 	 * @param roleId
 	 * @param authIds
 	 */
-	void setAuthToRole(Long roleId, Set<Long> authIds);
+	void setAuthToRole(Long roleId, Set<Long> authIds)  throws ServiceException;
 
 }

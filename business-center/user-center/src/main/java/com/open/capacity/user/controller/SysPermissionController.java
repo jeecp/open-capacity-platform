@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.open.capacity.common.exception.controller.ControllerException;
+import com.open.capacity.common.exception.service.ServiceException;
 import com.open.capacity.common.model.SysPermission;
 import com.open.capacity.common.web.PageResult;
 import com.open.capacity.common.web.Result;
@@ -46,25 +46,24 @@ public class SysPermissionController {
 	@Autowired
 	private SysPermissionService sysPermissionService;
 
-	private static Logger log = LoggerFactory.getLogger(SysPermissionController.class);
 	private ObjectMapper objectMapper = new ObjectMapper();
 	/**
 	 * 删除权限标识
 	 * 参考 /permissions/1
 	 * @param id
+	 * @throws ControllerException 
 	 */
 	@PreAuthorize("hasAuthority('permission:delete/permissions/{id}')")
 	@ApiOperation(value = "后台管理删除权限标识")
 	@DeleteMapping("/permissions/{id}")
 	@LogAnnotation(module="user-center",recordRequestParam=false)
-	public Result delete(@PathVariable Long id) {
+	public Result delete(@PathVariable Long id) throws ControllerException {
 
-		try{
+		try {
 			sysPermissionService.delete(id);
 			return  Result.succeed("操作成功");
-		}catch (Exception ex){
-			ex.printStackTrace();
-			return  Result.failed("操作失败");
+		} catch (ServiceException e) {
+			throw new ControllerException(e);
 		}
 
 	}
@@ -74,7 +73,7 @@ public class SysPermissionController {
 	 * 查询所有的权限标识
 	 * 参考 ?start=0&length=10
 	 * @return
-	 * @throws JsonProcessingException 
+	 * @throws ControllerException 
 	 */
 	@PreAuthorize("hasAuthority('permission:get/permissions')")
 	@ApiOperation(value = "后台管理查询所有的权限标识")
@@ -84,20 +83,25 @@ public class SysPermissionController {
     })
 	@LogAnnotation(module="user-center",recordRequestParam=false)
 	@GetMapping("/permissions")
-	public PageResult<SysPermission> findPermissions(@RequestParam Map<String, Object> params) throws JsonProcessingException {
+	public PageResult<SysPermission> findPermissions(@RequestParam Map<String, Object> params) throws ControllerException {
 		
-		return sysPermissionService.findPermissions(params);
+		try {
+			return sysPermissionService.findPermissions(params);
+		} catch (ServiceException e) {
+			throw new ControllerException(e);
+		}
 	}
 
 	/**
 	 * 权限新增或者更新
 	 * @param sysPermission
 	 * @return
+	 * @throws ControllerException 
 	 */
 	@PreAuthorize("hasAnyAuthority('permission:put/permissions','permission:post/permissions')")
 	@PostMapping("/permissions/saveOrUpdate")
 	@LogAnnotation(module="user-center",recordRequestParam=false)
-	public Result saveOrUpdate(@RequestBody SysPermission sysPermission) {
+	public Result saveOrUpdate(@RequestBody SysPermission sysPermission) throws ControllerException {
 		try{
 			if (sysPermission.getId()!=null){
 				sysPermissionService.update(sysPermission);
@@ -105,8 +109,8 @@ public class SysPermissionController {
 				sysPermissionService.save(sysPermission);
 			}
 			return Result.succeed("操作成功");
-		}catch (Exception ex){
-			return Result.failed("操作失败");
+		}catch (ServiceException e){
+			throw new ControllerException(e);
 		}
 	}
 
@@ -114,43 +118,51 @@ public class SysPermissionController {
 	@ApiOperation(value = "根据roleId获取对应的权限")
 	@GetMapping("/permissions/{roleId}/permissions")
 	@LogAnnotation(module="user-center",recordRequestParam=false)
-	public List<Map<String, Object>> findAuthByRoleId(@PathVariable Long roleId) {
+	public List<Map<String, Object>> findAuthByRoleId(@PathVariable Long roleId) throws ControllerException {
 		
-		List<Map<String, Object>> authTrees = new ArrayList<>();
-		Set<Long> roleIds = new HashSet<Long>();
-		//初始化角色
-		roleIds.add(roleId);
-		Set<SysPermission> roleAuths = sysPermissionService.findByRoleIds(roleIds);//根据roleId获取对应的权限
-		PageResult<SysPermission> allAuths = sysPermissionService.findPermissions(null);//根据roleId获取对应的权限
+		try {
+			List<Map<String, Object>> authTrees = new ArrayList<>();
+			Set<Long> roleIds = new HashSet<Long>();
+			//初始化角色
+			roleIds.add(roleId);
+			Set<SysPermission> roleAuths = sysPermissionService.findByRoleIds(roleIds);//根据roleId获取对应的权限
+			PageResult<SysPermission> allAuths = sysPermissionService.findPermissions(null);//根据roleId获取对应的权限
 
 
-		Map<Long,SysPermission> roleAuthsMap = roleAuths.stream().collect(Collectors.toMap(SysPermission::getId,SysPermission->SysPermission));
+			Map<Long,SysPermission> roleAuthsMap = roleAuths.stream().collect(Collectors.toMap(SysPermission::getId,SysPermission->SysPermission));
 
-		for (SysPermission sysPermission : allAuths.getData() ){
-			Map<String, Object> authTree = new HashMap<>();
-			authTree.put("id",sysPermission.getId() + "");
-			authTree.put("name",sysPermission.getName());
-			authTree.put("open",true);
-			authTree.put("checked", false);
-			if (roleAuthsMap.get(sysPermission.getId())!=null){
-				authTree.put("checked", true);
+			for (SysPermission sysPermission : allAuths.getData() ){
+				Map<String, Object> authTree = new HashMap<>();
+				authTree.put("id",sysPermission.getId() + "");
+				authTree.put("name",sysPermission.getName());
+				authTree.put("open",true);
+				authTree.put("checked", false);
+				if (roleAuthsMap.get(sysPermission.getId())!=null){
+					authTree.put("checked", true);
+				}
+				authTrees.add(authTree);
 			}
-			authTrees.add(authTree);
-		}
 
-		return authTrees;
+			return authTrees;
+		} catch (ServiceException e) {
+			throw new ControllerException(e);
+		}
 	}
 	/**
 	 * 给角色分配权限
-	 * @throws JsonProcessingException 
+	 * @throws ControllerException 
 	 */
 	@PreAuthorize("hasAuthority('permission:post/permissions/granted')")
 	@ApiOperation(value = "角色分配权限")
 	@PostMapping("/permissions/granted")
 	@LogAnnotation(module="user-center",recordRequestParam=false)
-	public Result setAuthToRole(@RequestBody SysPermission sysPermission) throws JsonProcessingException {
-		sysPermissionService.setAuthToRole(sysPermission.getRoleId(),sysPermission.getAuthIds());
-		return Result.succeed("操作成功");
+	public Result setAuthToRole(@RequestBody SysPermission sysPermission) throws ControllerException {
+		try {
+			sysPermissionService.setAuthToRole(sysPermission.getRoleId(),sysPermission.getAuthIds());
+			return Result.succeed("操作成功");
+		} catch (ServiceException e) {
+			throw new ControllerException(e);
+		}
 	}
 
 

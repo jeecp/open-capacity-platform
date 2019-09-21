@@ -8,8 +8,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,14 +22,16 @@ import com.open.capacity.client.utils.RedisLimiterUtils;
 import com.open.capacity.common.web.Result;
 import com.open.capacity.uaa.client.service.SysClientService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Created by owen on 2017/9/10. 根据应用 url 限流 oauth_client_details if_limit 限流开关
  * limit_count 阈值
  */
+@Slf4j
 @Component
 public class RateLimitFilter extends ZuulFilter {
 
-	private static Logger logger = LoggerFactory.getLogger(RateLimitFilter.class);
 
 	private ThreadLocal<Result> error_info = new ThreadLocal<Result>();
 	@Autowired
@@ -65,7 +65,7 @@ public class RateLimitFilter extends ZuulFilter {
 			HttpServletRequest request = ctx.getRequest();
 			if (!checkLimit(request)) {
 
-				logger.error("too many requests!");
+				log.error("too many requests!");
 				error_info.set(Result.failedWith(null, 429, "too many requests!"));
 
 				serverResponse(ctx, 429);
@@ -97,7 +97,7 @@ public class RateLimitFilter extends ZuulFilter {
 			ctx.setResponseStatusCode(http_code);
 		} catch (IOException e) {
 			StackTraceElement stackTraceElement= e.getStackTrace()[0];
-			logger.error("serverResponse:" + "---|Exception:" +stackTraceElement.getLineNumber()+"----"+ e.getMessage());
+			log.error("serverResponse:" + "---|Exception:" +stackTraceElement.getLineNumber()+"----"+ e.getMessage());
 		
 		}
 
@@ -162,7 +162,7 @@ public class RateLimitFilter extends ZuulFilter {
 								Result result = redisLimiterUtils.rateLimitOfDay(clientId, request.getRequestURI(),
 										Long.parseLong(accessLimitCount));
 								if (-1 == result.getResp_code()) {
-									logger.error("token:" + details.getTokenValue() + result.getResp_msg());
+									log.error("token:" + details.getTokenValue() + result.getResp_msg());
 									// ((ResultMsg)
 									// this.error_info.get()).setMsg("clientid:" +
 									// client_id + ":token:" + accessToken + ":" +
@@ -175,7 +175,7 @@ public class RateLimitFilter extends ZuulFilter {
 					}
 				} catch (Exception e) {
 					StackTraceElement stackTraceElement= e.getStackTrace()[0];
-					logger.error("checkLimit:" + "---|Exception:" +stackTraceElement.getLineNumber()+"----"+ e.getMessage());
+					log.error("checkLimit:" + "---|Exception:" +stackTraceElement.getLineNumber()+"----"+ e.getMessage());
 				}
 				
 				 

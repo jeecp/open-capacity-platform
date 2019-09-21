@@ -3,6 +3,7 @@ package com.open.capacity.oss.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 /**
  * @author 作者 owen E-mail: 624191343@qq.com
@@ -30,4 +31,9 @@ public class FileInfo implements Serializable {
 //	FileType字段
 	private String source;
 	private Date createTime;
+	/**
+	 * 目录磁盘地址
+	 */
+	@TableField(exist = false)
+	private String pathDir;
 }

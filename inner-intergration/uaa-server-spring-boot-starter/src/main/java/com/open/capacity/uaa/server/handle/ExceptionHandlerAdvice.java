@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.open.capacity.common.exception.controller.ControllerException;
+
 
 /**
  * @author 作者 owen E-mail: 624191343@qq.com
@@ -49,5 +51,13 @@ public class ExceptionHandlerAdvice {
 		return data;
 	}
  
-    
+	@ExceptionHandler({ ControllerException.class })
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public Map<String, Object> controllerException(ControllerException exception) {
+		Map<String, Object> data = new HashMap<>();
+		data.put("resp_code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+		data.put("resp_msg", exception.getMessage());
+
+		return data;
+	}
 }

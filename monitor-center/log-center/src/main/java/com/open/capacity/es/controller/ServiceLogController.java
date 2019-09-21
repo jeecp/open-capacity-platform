@@ -5,12 +5,11 @@ import java.util.Map;
 import org.apache.commons.collections4.MapUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +26,6 @@ import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.data.domain.Sort;
 
 /**
  * @author zlt
@@ -36,7 +34,6 @@ import org.springframework.data.domain.Sort;
 public class ServiceLogController {
 	
 	
-	private static Logger log = LoggerFactory.getLogger(ServiceLogController.class);
 	private ObjectMapper objectMapper = new ObjectMapper();
 
 	private static final String ES_PARAM_MESSAGE = "message";

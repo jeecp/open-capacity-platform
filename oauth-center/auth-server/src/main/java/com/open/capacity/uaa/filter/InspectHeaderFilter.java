@@ -1,4 +1,4 @@
-//package com.open.capacity.oauth.filter;
+//package com.open.capacity.uaa.filter;
 //
 //import java.io.IOException;
 //
@@ -10,23 +10,21 @@
 //import javax.servlet.ServletResponse;
 //import javax.servlet.http.HttpServletRequest;
 //
-//import org.apache.commons.lang.StringUtils;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 //import org.springframework.stereotype.Component;
 //
-// 
+//import lombok.extern.slf4j.Slf4j;
 //
+// 
+//@Slf4j
 //@Component
 //public class InspectHeaderFilter implements Filter {
-//	private static final Logger logger = LoggerFactory.getLogger(InspectHeaderFilter.class);
 //    @Override
 //    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 //            throws IOException, ServletException {
 //
 //
 //        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-//        logger.debug("得到头信息中的Authorization: " + httpServletRequest.getHeader("Authorization"));
+//        log.debug("得到头信息中的Authorization: " + httpServletRequest.getHeader("Authorization"));
 //        
 ////        String header = httpServletRequest.getHeader("Authorization") ;
 ////        String token = StringUtils.substringAfter(header, "bearer ") ;

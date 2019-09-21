@@ -1,4 +1,7 @@
 spring:
+  sleuth:
+    async:
+      enabled: true
   datasource:
     dynamic:
       enable: true

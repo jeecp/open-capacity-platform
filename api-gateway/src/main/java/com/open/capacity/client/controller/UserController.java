@@ -6,11 +6,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import cn.hutool.core.text.StrBuilder;
-import cn.hutool.core.util.RandomUtil;
-import com.open.capacity.common.web.Result;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -20,15 +15,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.open.capacity.common.web.Result;
 import com.open.capacity.uaa.client.token.RedisTemplateTokenStore;
+
+import cn.hutool.core.text.StrBuilder;
+import cn.hutool.core.util.RandomUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 作者 owen E-mail: 624191343@qq.com
  * @version 创建时间：2018年4月5日 下午19:52:21
  */
+@Slf4j
 @RestController
 public class UserController {
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Resource
 	private RedisTemplate< String, Object> redisTemplate ;
@@ -46,7 +46,7 @@ public class UserController {
 	public Map<String, Object> user(OAuth2Authentication user) {
 		Map<String, Object> userInfo = new HashMap<>();
 		userInfo.put("user", user.getUserAuthentication().getPrincipal());
-		logger.debug("认证详细信息:" + user.getUserAuthentication().getPrincipal().toString());
+		log.debug("认证详细信息:" + user.getUserAuthentication().getPrincipal().toString());
 		userInfo.put("authorities", AuthorityUtils.authorityListToSet(user.getUserAuthentication().getAuthorities()));
 		return userInfo;
 	}

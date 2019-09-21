@@ -7,8 +7,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -29,15 +27,16 @@ import com.open.capacity.client.utils.RedisLimiterUtils;
 import com.open.capacity.common.web.Result;
 import com.open.capacity.redis.util.RedisUtil;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 /**
  * Created by owen on 2018/12/10. 根据应用 url 限流 oauth_client_details if_limit 限流开关
  * limit_count 阈值
  */
+@Slf4j
 @Component
 public class RateLimitFilter implements GlobalFilter, Ordered {
-    private static final Logger logger = LoggerFactory.getLogger(AccessFilter.class);
     // url匹配器
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
     @Resource
@@ -79,7 +78,7 @@ public class RateLimitFilter implements GlobalFilter, Ordered {
        
     	String accessToken = extractToken(exchange.getRequest());
         if (!checkRateLimit(exchange, accessToken)) {
-                logger.error("TOO MANY REQUESTS!");
+                log.error("TOO MANY REQUESTS!");
                 exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
                 
                 ServerHttpResponse response = exchange.getResponse();
@@ -135,7 +134,7 @@ public class RateLimitFilter implements GlobalFilter, Ordered {
 							Result result = redisLimiterUtils.rateLimitOfDay(clientId,  reqUrl ,
 									Long.parseLong(accessLimitCount));
 							if (-1 == result.getResp_code()) {
-								logger.error("token:" + accessToken + result.getResp_msg());
+								log.error("token:" + accessToken + result.getResp_msg());
 								// ((ResultMsg)
 								// this.error_info.get()).setMsg("clientid:" +
 								// client_id + ":token:" + accessToken + ":" +
@@ -151,7 +150,7 @@ public class RateLimitFilter implements GlobalFilter, Ordered {
 			}
 		} catch (Exception e) {
 			StackTraceElement stackTraceElement= e.getStackTrace()[0];
-			logger.error("checkRateLimit:" + "---|Exception:" +stackTraceElement.getLineNumber()+"----"+ e.getMessage());
+			log.error("checkRateLimit:" + "---|Exception:" +stackTraceElement.getLineNumber()+"----"+ e.getMessage());
 		}
         
        return true;

@@ -1,32 +1,28 @@
 package com.open.capacity.uaa.server.handle;
 
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.common.OAuth2RefreshToken;
-import org.springframework.security.oauth2.common.exceptions.BadClientCredentialsException;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
-import org.springframework.util.Assert;
-
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.common.OAuth2RefreshToken;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.util.Assert;
+
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author keets
  * @date 2017/10/17
  */
+@Slf4j
 public class OauthLogoutHandler implements LogoutHandler {
 
-	private static final Logger logger = LoggerFactory.getLogger(OauthLogoutHandler.class);
 
 	@Autowired
 	private TokenStore tokenStore;
@@ -40,11 +36,11 @@ public class OauthLogoutHandler implements LogoutHandler {
 			OAuth2RefreshToken refreshToken;
 			if (existingAccessToken != null) {
 				if (existingAccessToken.getRefreshToken() != null) {
-					logger.info("remove refreshToken!", existingAccessToken.getRefreshToken());
+					log.info("remove refreshToken!", existingAccessToken.getRefreshToken());
 					refreshToken = existingAccessToken.getRefreshToken();
 					tokenStore.removeRefreshToken(refreshToken);
 				}
-				logger.info("remove existingAccessToken!", existingAccessToken);
+				log.info("remove existingAccessToken!", existingAccessToken);
 				tokenStore.removeAccessToken(existingAccessToken);
 			}
 			return;
@@ -58,10 +54,10 @@ public class OauthLogoutHandler implements LogoutHandler {
 
 		// bearer type allows a request parameter as well
 		if (token == null) {
-			logger.debug("Token not found in headers. Trying request parameters.");
+			log.debug("Token not found in headers. Trying request parameters.");
 			token = request.getParameter(OAuth2AccessToken.ACCESS_TOKEN);
 			if (token == null) {
-				logger.debug("Token not found in request parameters.  Not an OAuth2 request.");
+				log.debug("Token not found in request parameters.  Not an OAuth2 request.");
 			} else {
 				request.setAttribute(OAuth2AuthenticationDetails.ACCESS_TOKEN_TYPE, OAuth2AccessToken.BEARER_TYPE);
 			}

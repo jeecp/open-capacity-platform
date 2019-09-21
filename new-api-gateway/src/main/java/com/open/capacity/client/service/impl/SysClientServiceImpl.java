@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -16,16 +14,18 @@ import com.alibaba.fastjson.JSONObject;
 import com.open.capacity.client.dao.SysClientDao;
 import com.open.capacity.common.constant.UaaConstant;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author 作者 owen E-mail: 624191343@qq.com
  * @version 创建时间：2018年4月5日 下午19:52:21 类说明
  * 查询应用绑定的资源权限
  */
+@Slf4j
 @Service("sysClientService")
 public class SysClientServiceImpl {
 
 	 
-    private Logger logger =LoggerFactory.getLogger(SysClientServiceImpl.class) ;
 
     @Autowired
     
@@ -59,10 +59,10 @@ public class SysClientServiceImpl {
             if (client != null) {
                 // 写入redis缓存
                 redisTemplate.boundHashOps(UaaConstant.CACHE_CLIENT_KEY).put(clientId, JSONObject.toJSONString(client));
-                logger.info("缓存clientId:{},{}", clientId, client);
+                log.info("缓存clientId:{},{}", clientId, client);
             }
         }catch (Exception e){
-            logger.info("clientId:{},{}", clientId, clientId );
+        	log.info("clientId:{},{}", clientId, clientId );
         }
 
         return client;
@@ -75,11 +75,11 @@ public class SysClientServiceImpl {
         if (redisTemplate.hasKey(UaaConstant.CACHE_CLIENT_KEY)) {
             return;
         }
-        logger.info("将oauth_client_details全表刷入redis");
+        log.info("将oauth_client_details全表刷入redis");
 
         List<Map> list = sysClientDao.findAll();
         if (CollectionUtils.isEmpty(list)) {
-            logger.error("oauth_client_details表数据为空，请检查");
+        	log.error("oauth_client_details表数据为空，请检查");
             return;
         }
 

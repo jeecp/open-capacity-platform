@@ -5,8 +5,6 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
@@ -14,13 +12,14 @@ import org.springframework.stereotype.Component;
 import com.open.capacity.common.web.Result;
 import com.open.capacity.redis.util.RedisUtil;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class RedisLimiterUtils {
     public static final String API_WEB_TIME_KEY = "time_key:";
     public static final String API_WEB_COUNTER_KEY = "counter_key:";
     private static final String EXCEEDS_LIMIT = "规定的时间内超出了访问的限制！";
-    private static Logger logger = LoggerFactory.getLogger(RedisLimiterUtils.class);
     @Resource
     RedisTemplate<Object, Object> redisTemplate;
     @Resource(name = "stringRedisTemplate")
@@ -41,7 +40,7 @@ public class RedisLimiterUtils {
             redisUtil.set(counter_key, 0);
         }
         if (redisUtil.hasKey(time_key) && redisUtil.incr(counter_key, 1) > limit) {
-            logger.info(EXCEEDS_LIMIT);
+            log.info(EXCEEDS_LIMIT);
             return Result.failedWith(null, -1, EXCEEDS_LIMIT);
         }
         return Result.succeedWith(null, 0,  "调用次数:" + this.ops.get(counter_key) );
@@ -57,7 +56,7 @@ public class RedisLimiterUtils {
             redisUtil.set(counter_key, 0);
         }
         if (redisUtil.hasKey(time_key) && redisUtil.incr(counter_key, 1) > limit) {
-            logger.info(EXCEEDS_LIMIT);
+        	log.info(EXCEEDS_LIMIT);
             return Result.failedWith(null, -1, EXCEEDS_LIMIT);
         }
         return Result.succeedWith(null, 0,  "调用次数:" + this.ops.get(counter_key) );
@@ -73,7 +72,7 @@ public class RedisLimiterUtils {
             redisUtil.set(counter_key, 0);
         }
         if (redisUtil.hasKey(time_key) && redisUtil.incr(counter_key, 1) > limit) {
-            logger.info(EXCEEDS_LIMIT);
+        	log.info(EXCEEDS_LIMIT);
             return Result.failedWith(null, -1, EXCEEDS_LIMIT);
         }
         return Result.succeedWith(null, 0,  "调用次数:" + this.ops.get(counter_key) );
@@ -91,7 +90,7 @@ public class RedisLimiterUtils {
             redisUtil.set(counter_key, 0);
         }
         if (redisUtil.hasKey(time_key) && redisUtil.incr(counter_key, 1) > limit) {
-            logger.info(EXCEEDS_LIMIT);
+        	log.info(EXCEEDS_LIMIT);
             return Result.failedWith(null, -1, EXCEEDS_LIMIT);
         }
         return Result.succeedWith(null, 0,  "调用次数:" + this.ops.get(counter_key) );
@@ -112,7 +111,7 @@ public class RedisLimiterUtils {
 
         //累加访问次数， 超出配置的limit则返回错误
         if (redisUtil.incr(counter_key, 1) > limit) {
-            logger.info("日内超出了访问的限制！");
+        	log.info("日内超出了访问的限制！");
             return Result.failedWith(null, -1, "日内超出了访问的限制!");
         }
         return Result.succeedWith(null, 0,  "调用总次数:" + this.ops.get(counter_key) );
@@ -130,7 +129,7 @@ public class RedisLimiterUtils {
             redisUtil.set(counter_key, 0);
         }
         if (redisUtil.hasKey(time_key) && redisUtil.incr(counter_key, 1) > limit) {
-            logger.info(EXCEEDS_LIMIT);
+        	log.info(EXCEEDS_LIMIT);
             return Result.failedWith(null, -1, EXCEEDS_LIMIT);
         }
         return Result.succeedWith(null, 0,  "调用次数:" + this.ops.get(counter_key) );

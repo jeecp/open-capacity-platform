@@ -4,8 +4,6 @@ import java.util.Map;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,11 +23,11 @@ import com.open.capacity.es.entity.NinxLogDocument;
 /**
  * nginx日志查询
  */
+
 @RestController
 public class NginxLogController {
 	
 	
-	private static Logger log = LoggerFactory.getLogger(NginxLogController.class);
 	private ObjectMapper objectMapper = new ObjectMapper();
 
 	 

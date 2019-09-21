@@ -9,6 +9,7 @@ public enum FileType {
 //	七牛
 	QINIU ,
 //	阿里云
-	ALIYUN  
-
+	ALIYUN,
+	// 本地存储
+	LOCAL
 }

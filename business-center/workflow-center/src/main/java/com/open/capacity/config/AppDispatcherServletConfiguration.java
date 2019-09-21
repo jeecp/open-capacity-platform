@@ -3,8 +3,6 @@ package com.open.capacity.config;
 import org.flowable.ui.modeler.rest.app.EditorGroupsResource;
 import org.flowable.ui.modeler.rest.app.EditorUsersResource;
 import org.flowable.ui.modeler.rest.app.StencilSetResource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,10 +13,13 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author pm
  * @date 2019/7/28 16:52
  */
+@Slf4j
 @Configuration
 @ComponentScan(value = {"org.flowable.ui.modeler.rest.app"},
         excludeFilters = {
@@ -28,7 +29,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
         })
 @EnableAsync
 public class AppDispatcherServletConfiguration implements WebMvcRegistrations {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AppDispatcherServletConfiguration.class);
 
     @Bean
     public SessionLocaleResolver localeResolver() {
@@ -37,7 +37,7 @@ public class AppDispatcherServletConfiguration implements WebMvcRegistrations {
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
-        LOGGER.debug("Configuring localeChangeInterceptor");
+        log.debug("Configuring localeChangeInterceptor");
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("language");
         return localeChangeInterceptor;
@@ -45,7 +45,7 @@ public class AppDispatcherServletConfiguration implements WebMvcRegistrations {
 
     @Override
     public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
-        LOGGER.debug("Creating requestMappingHandlerMapping");
+        log.debug("Creating requestMappingHandlerMapping");
         RequestMappingHandlerMapping requestMappingHandlerMapping = new RequestMappingHandlerMapping();
         requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
         requestMappingHandlerMapping.setRemoveSemicolonContent(false);

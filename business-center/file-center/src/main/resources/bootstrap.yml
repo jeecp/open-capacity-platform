@@ -7,6 +7,10 @@ server:
 spring:
   application:
     name: file-center
+  servlet:
+    multipart:
+      max-request-size: 200MB
+      max-file-size: 200MB
  
 management:
   endpoints:

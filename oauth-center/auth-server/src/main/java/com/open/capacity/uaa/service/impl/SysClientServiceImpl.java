@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections4.MapUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,12 +24,12 @@ import com.open.capacity.uaa.dto.SysClientDto;
 import com.open.capacity.uaa.model.SysClient;
 import com.open.capacity.uaa.service.SysClientService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class SysClientServiceImpl implements SysClientService {
 
-    private static final Logger log = LoggerFactory.getLogger(SysClientServiceImpl.class);
-
-     
 
     @Autowired
     private SysClientDao sysClientDao;

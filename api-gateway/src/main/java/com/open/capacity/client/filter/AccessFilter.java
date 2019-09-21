@@ -1,19 +1,9 @@
-package com.open.capacity.client.filter;
-//package com.open.capacity.client.oauth2.filter;
+//package com.open.capacity.client.filter;
 //
 //import javax.servlet.http.HttpServletRequest;
 //
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.oauth2.provider.OAuth2Authentication;
-//import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 //import org.springframework.stereotype.Component;
 //
-//import com.alibaba.fastjson.JSON;
-//
-//import com.netflix.discovery.CommonConstants;
 //import com.netflix.zuul.ZuulFilter;
 //import com.netflix.zuul.context.RequestContext;
 //
@@ -59,7 +49,7 @@ package com.open.capacity.client.filter;
 ////    				Authentication athentication = (Authentication)user;
 ////    				
 ////    				OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) athentication.getDetails() ;
-////    				ctx.addZuulRequestHeader("Authorization", "bearer "+details.getTokenValue());
+////    				ctx.addZuulRequestHeader("Authorization", "Bearer "+details.getTokenValue());
 ////    			}
 ////    			
 ////    		}

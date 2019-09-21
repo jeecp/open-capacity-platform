@@ -105,4 +105,8 @@ public class QiniuOssServiceImpl extends AbstractFileService implements Initiali
 				"{\"key\":\"$(key)\",\"hash\":\"$(etag)\",\"bucket\":\"$(bucket)\",\"width\":$(imageInfo.width), \"height\":${imageInfo.height}}");
 	}
 
+	@Override
+	public void unZip(String filePath, String descDir) throws RuntimeException {
+
+	}
 }

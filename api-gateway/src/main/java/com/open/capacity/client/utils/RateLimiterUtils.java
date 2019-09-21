@@ -2,9 +2,6 @@ package com.open.capacity.client.utils;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.util.concurrent.RateLimiter;
 
 
@@ -12,7 +9,6 @@ import com.google.common.util.concurrent.RateLimiter;
 //http://blog.csdn.net/lzy_lizhiyang/article/details/47951423
 public class RateLimiterUtils {  
     
-    private static Logger logger = LoggerFactory.getLogger(RateLimiterUtils.class);  
       
     private static final ConcurrentHashMap<String, RateLimiter> resourceLimitMap =   
             new ConcurrentHashMap<String, RateLimiter>();  

@@ -12,11 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.open.capacity.uaa.server.token.SmsCodeAuthenticationToken;
 import org.apache.commons.collections.MapUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -57,22 +53,23 @@ import com.open.capacity.common.util.SysUserUtil;
 import com.open.capacity.common.web.PageResult;
 import com.open.capacity.log.annotation.LogAnnotation;
 import com.open.capacity.uaa.server.service.RedisClientDetailsService;
+import com.open.capacity.uaa.server.token.SmsCodeAuthenticationToken;
 import com.open.capacity.uaa.utils.SpringUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 作者 owen E-mail: 624191343@qq.com
  * @version 创建时间：2018年4月28日 下午2:18:54 类说明
  */
-
-@Api(tags = "OAuth API")
+@Slf4j
 @RestController
+@Api(tags = "OAuth API")
 public class OAuth2Controller {
 
-	private static final Logger logger = LoggerFactory.getLogger(OAuth2Controller.class);
 	@Resource
 	private ObjectMapper objectMapper; // springmvc启动时自动装配json处理类
 	@Autowired
@@ -355,7 +352,7 @@ public class OAuth2Controller {
 	public Map<String, Object> getCurrentUserDetail() {
 		Map<String, Object> userInfo = new HashMap<>();
 		userInfo.put("user", SysUserUtil.getLoginAppUser());
-		logger.debug("认证详细信息:" + SysUserUtil.getLoginAppUser().toString());
+		log.debug("认证详细信息:" + SysUserUtil.getLoginAppUser().toString());
 
 		List<SysPermission> permissions = new ArrayList<>();
 
@@ -371,7 +368,7 @@ public class OAuth2Controller {
 
 		userInfo.put("resp_code", "200");
 
-		logger.info("返回信息:{}", userInfo);
+		log.info("返回信息:{}", userInfo);
 
 		return userInfo;
 	}

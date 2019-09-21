@@ -1,5 +1,4 @@
-package com.open.capacity.client.filter;
-//package com.open.capacity.client.oauth2.filter;
+//package com.open.capacity.client.filter;
 //
 //import java.io.IOException;
 //import java.util.Enumeration;
@@ -11,15 +10,14 @@ package com.open.capacity.client.filter;
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
 //
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 //import org.springframework.beans.factory.InitializingBean;
-//import org.springframework.security.core.AuthenticationException;
 //import org.springframework.security.oauth2.common.OAuth2AccessToken;
 //import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 //import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 //import org.springframework.util.AntPathMatcher;
 //import org.springframework.web.filter.OncePerRequestFilter;
+//
+//import lombok.extern.slf4j.Slf4j;
 //
 ///**
 // * IP过滤器
@@ -28,9 +26,9 @@ package com.open.capacity.client.filter;
 // *
 // *         2017年10月14日
 // */
+//@Slf4j
 //public class IPFilter extends OncePerRequestFilter implements InitializingBean {
 //
-//	Logger logger = LoggerFactory.getLogger(getClass());
 //	
 //	private AuthenticationFailureHandler authenticationFailureHandler;
 //
@@ -99,10 +97,10 @@ package com.open.capacity.client.filter;
 //
 //		// bearer type allows a request parameter as well
 //		if (token == null) {
-//			logger.debug("Token not found in headers. Trying request parameters.");
+//			log.debug("Token not found in headers. Trying request parameters.");
 //			token = request.getParameter(OAuth2AccessToken.ACCESS_TOKEN);
 //			if (token == null) {
-//				logger.debug("Token not found in request parameters.  Not an OAuth2 request.");
+//				log.debug("Token not found in request parameters.  Not an OAuth2 request.");
 //			} else {
 //				request.setAttribute(OAuth2AuthenticationDetails.ACCESS_TOKEN_TYPE, OAuth2AccessToken.BEARER_TYPE);
 //			}

@@ -22,4 +22,5 @@ public interface FileService {
 	
 	PageResult<FileInfo>  findList(Map<String, Object> params);
 
+	void unZip(String filePath, String descDir) throws RuntimeException ;
 }

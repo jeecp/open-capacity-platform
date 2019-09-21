@@ -5,8 +5,6 @@
 //import java.net.URI;
 //import java.util.Map;
 //
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 //import org.springframework.cloud.client.ServiceInstance;
 //import org.springframework.cloud.netflix.eureka.EurekaDiscoveryClient.EurekaServiceInstance;
 //import org.springframework.util.Assert;
@@ -15,9 +13,9 @@
 //
 //import com.netflix.appinfo.InstanceInfo;
 //
-//import de.codecentric.boot.admin.server.cloud.discovery.DefaultServiceInstanceConverter;
 //import de.codecentric.boot.admin.server.cloud.discovery.ServiceInstanceConverter;
 //import de.codecentric.boot.admin.server.domain.values.Registration;
+//import lombok.extern.slf4j.Slf4j;
 //
 //
 ///**
@@ -25,8 +23,8 @@
 // * @version 创建时间：2017年11月24日 下午5:34:47 类说明
 // * 偷梁换柱 将druid数据库连接池 注册到监控中心
 // */
+//@Slf4j
 //public class EurekaConverter implements ServiceInstanceConverter {
-//    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultServiceInstanceConverter.class);
 //    private static final String KEY_MANAGEMENT_PORT = "management.port";
 //    private static final String KEY_MANAGEMENT_PATH = "management.context-path";
 //    private static final String KEY_HEALTH_PATH = "health.path";
@@ -43,7 +41,7 @@
 //
 //    @Override
 //    public Registration convert(ServiceInstance instance) {
-//        LOGGER.debug("Converting service '{}' running at '{}' with metadata {}", instance.getServiceId(),
+//        log.debug("Converting service '{}' running at '{}' with metadata {}", instance.getServiceId(),
 //            instance.getUri(), instance.getMetadata());
 //
 //        Registration.Builder builder = Registration.create(instance.getServiceId(), getHealthUrl1(instance).toString());
