@@ -1,6 +1,7 @@
 package com.open.capacity.common.auth.details;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,19 +42,20 @@ public class LoginAppUser extends SysUser implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> collection = new HashSet<>();
+		Collection<GrantedAuthority> synchronizedCollection = Collections.synchronizedCollection(collection) ;
 		if (!CollectionUtils.isEmpty(sysRoles)) {
 			sysRoles.parallelStream().forEach(role -> {
 				if (role.getCode().startsWith("ROLE_")) {
-					collection.add(new SimpleGrantedAuthority(role.getCode()));
+					synchronizedCollection.add(new SimpleGrantedAuthority(role.getCode()));
 				} else {
-					collection.add(new SimpleGrantedAuthority("ROLE_" + role.getCode()));
+					synchronizedCollection.add(new SimpleGrantedAuthority("ROLE_" + role.getCode()));
 				}
 			});
 		}
 
 		if (!CollectionUtils.isEmpty(permissions)) {
 			permissions.parallelStream().forEach(per -> {
-				collection.add(new SimpleGrantedAuthority(per));
+				synchronizedCollection.add(new SimpleGrantedAuthority(per));
 			});
 		}
 
@@ -90,4 +92,5 @@ public class LoginAppUser extends SysUser implements UserDetails {
 	public boolean isEnabled() {
 		return getEnabled();
 	}
+	
 }

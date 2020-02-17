@@ -45,8 +45,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
 				// .apis(RequestHandlerSelectors.basePackage("com.open.capacity"))
 				.apis(RequestHandlerSelectors.any())
-				.paths( input ->PathSelectors.regex("/user.*").apply(input) || PathSelectors.regex("/permissions.*").apply(input) 
-						|| PathSelectors.regex("/roles.*").apply(input) || PathSelectors.regex("/test.*").apply(input)
+				.paths( input ->PathSelectors.regex("/files.*").apply(input) || PathSelectors.regex("/fileinfo.*").apply(input) 
 				)
 				// .paths(PathSelectors.any())
 				.build().globalOperationParameters(pars);

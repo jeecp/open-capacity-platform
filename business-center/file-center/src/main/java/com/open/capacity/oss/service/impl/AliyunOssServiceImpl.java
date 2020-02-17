@@ -51,8 +51,4 @@ public class AliyunOssServiceImpl extends AbstractFileService {
 		return true;
 	}
 
-	@Override
-	public void unZip(String filePath, String descDir) throws RuntimeException {
-
-	}
 }

@@ -42,7 +42,7 @@ public class SysClientController {
 
     @GetMapping
     @ApiOperation(value = "应用列表")
-    @PreAuthorize("hasAuthority('sys:role:query')")
+    @PreAuthorize("hasAuthority('client:get/clients')")
     @LogAnnotation(module="auth-server",recordRequestParam=false)
     public PageResult<SysClient> listRoles(@RequestParam Map<String, Object> params) {
         return sysClientService.listRoles(params) ;
@@ -50,7 +50,7 @@ public class SysClientController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据id获取应用")
-    @PreAuthorize("hasAuthority('sys:role:query')")
+    @PreAuthorize("hasAuthority('client:get/clients/{id}')")
     @LogAnnotation(module="auth-server",recordRequestParam=false)
     public SysClient get(@PathVariable Long id) {
         return sysClientService.getById(id);
@@ -59,22 +59,14 @@ public class SysClientController {
     @GetMapping("/all")
     @ApiOperation(value = "所有应用")
     @LogAnnotation(module="auth-server",recordRequestParam=false)
-    @PreAuthorize("hasAnyAuthority('sys:user:query','sys:role:query')")
+    @PreAuthorize("hasAnyAuthority('client:get/clients')")
     public List<SysClient> roles() {
         return sysClientService.findList(Maps.newHashMap());
     }
 
-    @GetMapping(params = "userId")
-    @ApiOperation(value = "根据用户id获取拥有的角色")
-    @LogAnnotation(module="auth-server",recordRequestParam=false)
-    @PreAuthorize("hasAnyAuthority('sys:user:query','sys:role:query')")
-    public List<SysClient> roles(Long userId) {
-        return sysClientService.listByUserId(userId);
-    }
-
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除应用")
-    @PreAuthorize("hasAuthority('sys:role:del')")
+    @PreAuthorize("hasAuthority('client:delete/clients')")
     @LogAnnotation(module="auth-server",recordRequestParam=false)
     public void delete(@PathVariable Long id) {
     	sysClientService.deleteClient(id);
@@ -82,14 +74,14 @@ public class SysClientController {
 
     @PostMapping("/saveOrUpdate")
     @ApiOperation(value = "保存或者修改应用")
-    @PreAuthorize("hasAuthority('sys:role:saveOrUpdate')")
+    @PreAuthorize("hasAuthority('client:post/clients')")
     public Result saveOrUpdate(@RequestBody SysClientDto clientDto){
         return  sysClientService.saveOrUpdate(clientDto);
     }
     
     @PutMapping("/updateEnabled")
     @ApiOperation(value = "修改状态")
-    @PreAuthorize("hasAuthority('sys:role:saveOrUpdate')")
+    @PreAuthorize("hasAuthority('client:post/clients')")
     @LogAnnotation(module="auth-server",recordRequestParam=false)
     public Result updateEnabled(@RequestBody Map<String, Object> params){
         return  sysClientService.updateEnabled(params);

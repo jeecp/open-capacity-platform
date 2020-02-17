@@ -10,4 +10,11 @@ public class UaaConstant {
     public static final String TOKEN_PARAM = "access_token" ;
     
     public static final String TOKEN_HEADER = "accessToken" ;
+    
+    public static final String AUTH = "auth" ;
+    
+    public static final String TOKEN = "token" ;
+    
+    public static final String Authorization = "Authorization" ;
+    
 }

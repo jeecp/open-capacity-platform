@@ -84,7 +84,7 @@ public class SmsServiceImpl implements SmsService {
 //				sms.setBizId(response.getBizId());
 //			}
 //		} catch (ClientException e) {
-//			e.printStackTrace();
+//			log.error("SmsServiceImpl->sendSmsMsg:{}" ,e.getMessage());
 //		}
 //		测试时不需要开此 add by someday end
 		update(sms);

@@ -1,11 +1,6 @@
 package com.open.capacity.uaa.client.token;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -90,10 +85,12 @@ public class RedisTemplateTokenStore implements TokenStore {
 	public void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
 
 
-		this.redisTemplate.opsForValue().set(ACCESS + token.getValue(), token);
-		this.redisTemplate.opsForValue().set(AUTH + token.getValue(), authentication);
-		this.redisTemplate.opsForValue().set(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication),
-				token);
+		if(token!=null){
+			this.redisTemplate.opsForValue().set(ACCESS + token.getValue(), token);
+			this.redisTemplate.opsForValue().set(AUTH + token.getValue(), authentication);
+			this.redisTemplate.opsForValue().set(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication),
+					token);
+		}
 
 		if (!authentication.isClientOnly()) {
 			if (token != null) {
@@ -113,6 +110,12 @@ public class RedisTemplateTokenStore implements TokenStore {
 		if (token != null) {
 			if (token.getExpiration() != null) {
 				int seconds = token.getExpiresIn();
+				redisTemplate.expire(ACCESS + token.getValue(), seconds, TimeUnit.SECONDS);
+				redisTemplate.expire(AUTH + token.getValue(), seconds, TimeUnit.SECONDS);
+				redisTemplate.expire(TOKEN + token.getValue(), seconds, TimeUnit.SECONDS);
+				redisTemplate.expire(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication), seconds,
+						TimeUnit.SECONDS);
+				redisTemplate.expire(UNAME_TO_ACCESS + getApprovalKey(authentication), seconds, TimeUnit.SECONDS);
 				redisTemplate.expire(CLIENT_ID_TO_ACCESS + authentication.getOAuth2Request().getClientId(), seconds,
 						TimeUnit.SECONDS);
 
@@ -125,40 +128,32 @@ public class RedisTemplateTokenStore implements TokenStore {
 					token);
 		}
 
-		if (token.getExpiration() != null) {
 
-			int seconds = token.getExpiresIn();
-			redisTemplate.expire(ACCESS + token.getValue(), seconds, TimeUnit.SECONDS);
-			redisTemplate.expire(AUTH + token.getValue(), seconds, TimeUnit.SECONDS);
-			redisTemplate.expire(TOKEN + token.getValue(), seconds, TimeUnit.SECONDS);
-			redisTemplate.expire(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication), seconds,
-					TimeUnit.SECONDS);
-			redisTemplate.expire(CLIENT_ID_TO_ACCESS + authentication.getOAuth2Request().getClientId(), seconds,
-					TimeUnit.SECONDS);
-			redisTemplate.expire(UNAME_TO_ACCESS + getApprovalKey(authentication), seconds, TimeUnit.SECONDS);
-		}
-
-		OAuth2RefreshToken refreshToken = token.getRefreshToken();
-
-		if (token.getRefreshToken() != null && token.getRefreshToken().getValue() != null) {
-			this.redisTemplate.opsForValue().set(REFRESH_TO_ACCESS + token.getRefreshToken().getValue(),
-					token.getValue());
-			this.redisTemplate.opsForValue().set(ACCESS_TO_REFRESH + token.getValue(),
-					token.getRefreshToken().getValue());
-
-			if (refreshToken instanceof ExpiringOAuth2RefreshToken) {
-				ExpiringOAuth2RefreshToken expiringRefreshToken = (ExpiringOAuth2RefreshToken) refreshToken;
-				Date expiration = expiringRefreshToken.getExpiration();
-				if (expiration != null) {
-					int seconds = Long.valueOf((expiration.getTime() - System.currentTimeMillis()) / 1000L).intValue();
-
-					redisTemplate.expire(REFRESH_TO_ACCESS + token.getRefreshToken().getValue(), seconds,
-							TimeUnit.SECONDS);
-					redisTemplate.expire(ACCESS_TO_REFRESH + token.getValue(), seconds, TimeUnit.SECONDS);
-
+		if(token!=null){
+		 
+			OAuth2RefreshToken refreshToken = token.getRefreshToken();
+	
+			if (token.getRefreshToken() != null && token.getRefreshToken().getValue() != null) {
+				this.redisTemplate.opsForValue().set(REFRESH_TO_ACCESS + token.getRefreshToken().getValue(),
+						token.getValue());
+				this.redisTemplate.opsForValue().set(ACCESS_TO_REFRESH + token.getValue(),
+						token.getRefreshToken().getValue());
+	
+				if (refreshToken instanceof ExpiringOAuth2RefreshToken) {
+					ExpiringOAuth2RefreshToken expiringRefreshToken = (ExpiringOAuth2RefreshToken) refreshToken;
+					Date expiration = expiringRefreshToken.getExpiration();
+					if (expiration != null) {
+						
+						int seconds = Long.valueOf((expiration.getTime() - System.currentTimeMillis()) / 1000L)
+								.intValue();
+						redisTemplate.expire(REFRESH_TO_ACCESS + token.getRefreshToken().getValue(), seconds,
+								TimeUnit.SECONDS);
+						redisTemplate.expire(ACCESS_TO_REFRESH + token.getValue(), seconds, TimeUnit.SECONDS);
+	
+					}
 				}
+	
 			}
-
 		}
 	}
 
@@ -225,7 +220,6 @@ public class RedisTemplateTokenStore implements TokenStore {
 	}
 
 	public void removeAccessToken(String tokenValue) {
-		OAuth2AccessToken removed = (OAuth2AccessToken) redisTemplate.opsForValue().get(ACCESS + tokenValue);
 		// Don't remove the refresh token - it's up to the caller to do that
 		OAuth2Authentication authentication = (OAuth2Authentication) this.redisTemplate.opsForValue()
 				.get(AUTH + tokenValue);

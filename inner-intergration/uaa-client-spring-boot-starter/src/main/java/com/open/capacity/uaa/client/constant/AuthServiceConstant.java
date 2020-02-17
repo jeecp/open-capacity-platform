@@ -9,6 +9,6 @@ package com.open.capacity.uaa.client.constant;
  */
 
 public class AuthServiceConstant {
-	public static String GATEWAY_SERVICE = "api-gateway";
-	public static String AUTH_SERVICE = "auth-server";
+	public static final String GATEWAY_SERVICE = "api-gateway";
+	public static final String AUTH_SERVICE = "auth-server";
 }

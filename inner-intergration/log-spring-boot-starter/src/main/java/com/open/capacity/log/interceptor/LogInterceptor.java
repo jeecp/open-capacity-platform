@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.open.capacity.log.util.LogUtil;
+import com.open.capacity.common.constant.TraceConstant;
 
 /**
  * @author owen
@@ -19,9 +19,9 @@ public class LogInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         // "traceId"
        
-        String traceId = request.getHeader(LogUtil.HTTP_HEADER_TRACE_ID);
+        String traceId = request.getHeader(TraceConstant.HTTP_HEADER_TRACE_ID);
         if (StringUtils.isNotEmpty(traceId)) {
-        	 MDC.put(LogUtil.LOG_TRACE_ID, traceId);
+        	 MDC.put(TraceConstant.LOG_TRACE_ID, traceId);
         }
 
         return true;

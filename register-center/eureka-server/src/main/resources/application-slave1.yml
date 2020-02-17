@@ -3,6 +3,12 @@ server:
 spring:
   zipkin:
     base-url: http://127.0.0.1:11008
+security:
+  basic:
+    enabled: true
+  user:
+    name: ocp
+    password: ocp2019
 
 eureka:
   server:
@@ -12,12 +18,14 @@ eureka:
     register-with-eureka: true  #false:不作为一个客户端注册到注册中心
     fetch-registry: true      #为true时，可以启动，但报异常：Cannot execute request on any known server
     serviceUrl:
-      defaultZone: http://127.0.0.1:1111/eureka,http://127.0.0.1:1112/eureka,http://127.0.0.1:1113/eureka
+      defaultZone: http://ocp:ocp2019@eureka1:1111/eureka,http://ocp:ocp2019@eureka2:1112/eureka,http://ocp:ocp2019@eureka3:1113/eureka
   instance:
-    prefer-ip-address: true
+    hostname: eureka1
+    appname: eureka-server 
+    prefer-ip-address: false
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
-    lease-renewal-interval-in-seconds: 30    # 续约更新时间间隔（默认30秒）
-    lease-expiration-duration-in-seconds: 90 # 续约到期时间（默认90秒）  
+    lease-renewal-interval-in-seconds: 10    # 续约更新时间间隔（默认30秒）
+    lease-expiration-duration-in-seconds: 30 # 续约到期时间（默认90秒）
 logging:
   level:
     root: INFO

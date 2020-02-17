@@ -25,17 +25,17 @@ zipkin:
   storage:
     type: elasticsearch
     elasticsearch:
-      hosts: http://35.192.230.214:9200/ 
+      hosts: http://47.99.88.28:9200
       #      username: elastic
       #      password: changeme
-      cluster: docker-cluster
+      cluster: elasticsearch
       index: zipkin
       index-shards: 1
       index-replicas: 1
   collector:
     kafka:
-      bootstrap-servers: 39.108.176.135:9092
-      zookeeper: 39.108.176.135:2181
+      bootstrap-servers: 47.99.88.28:9092
+      zookeeper: 47.99.88.28:2181
       topic: zipkin
  
 
@@ -44,19 +44,19 @@ zipkin:
 eureka:
   client:
     serviceUrl:
-      defaultZone:  http://127.0.0.1:1111/eureka
+      defaultZone:  http://ocp:ocp2019@127.0.0.1:1111/eureka
       #http://130.75.131.241:8761/eureka,http://130.75.131.248:8762/eureka
       #http://134.224.249.33:1111/eureka/  正式库
       #http://134.224.249.33:1111/eureka/  测试库
       #http://127.0.0.1:8761/eureka,http://127.0.0.1:8762/eureka
-    registry-fetch-interval-seconds: 2  
-    instance-info-replication-interval-seconds: 2      
+    registry-fetch-interval-seconds: 5  
+    instance-info-replication-interval-seconds: 10      
     
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
 #    instance-id: ${spring.application.name}:${docker.ipAddress}:${spring.application.instance_id:${server.port}}
-    lease-renewal-interval-in-seconds: 5  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
+    lease-renewal-interval-in-seconds: 10  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
     lease-expiration-duration-in-seconds: 15 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除
 
 
@@ -66,6 +66,3 @@ logging:
     org.hibernate: INFO
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
-    com.neusoft: DEBUG     
-    com.netflix: DEBUG                    #用于心跳检测输出的日志
-                  

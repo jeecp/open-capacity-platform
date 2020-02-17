@@ -7,6 +7,11 @@
   </parent>
   <artifactId>redis-spring-boot-starter</artifactId>
   <description>redis支撑</description>
+  
+  <properties>
+  	<redssion.version>3.11.6</redssion.version>
+  </properties>
+  
   <dependencies>
 
 		<!-- 加入redis的处理 -->
@@ -16,6 +21,13 @@
 		</dependency>
 
 		
+		<dependency>
+		    <groupId>org.redisson</groupId>
+		    <artifactId>redisson</artifactId>
+		    <version>${redssion.version}</version>
+		</dependency>
+		
+		  
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>

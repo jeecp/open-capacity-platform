@@ -17,6 +17,9 @@ import com.open.capacity.client.service.DynamicRouteService;
 import com.open.capacity.common.web.PageResult;
 import com.open.capacity.common.web.Result;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 @RestController
 @RequestMapping("/route")
 public class RouteController {
@@ -26,39 +29,39 @@ public class RouteController {
 
     //增加路由
     @PostMapping("/add")
-    public Result add(@RequestBody GatewayRouteDefinition gatewayRouteDefinition) {
-        return Result.succeed(dynamicRouteService.add(gatewayRouteDefinition));
+    public Mono<Result>   add(@RequestBody GatewayRouteDefinition gatewayRouteDefinition) {
+        return Mono.just(Result.succeed(dynamicRouteService.add(gatewayRouteDefinition)));
     }
 
     //更新路由
     @PostMapping("/update")
-    public Result update(@RequestBody GatewayRouteDefinition gatewayRouteDefinition) {
-        return Result.succeed(dynamicRouteService.update(gatewayRouteDefinition));
+    public Mono<Result> update(@RequestBody GatewayRouteDefinition gatewayRouteDefinition) {
+        return Mono.just(Result.succeed(dynamicRouteService.update(gatewayRouteDefinition)));
     }
 
     //删除路由
     @DeleteMapping("/{id}")
-    public Result delete(@PathVariable String id) {
-        return Result.succeed(dynamicRouteService.delete(id));
+    public Mono<Result> delete(@PathVariable String id) {
+        return Mono.just(Result.succeed(dynamicRouteService.delete(id)));
     }
 
     //获取全部数据
     @GetMapping("/findAll")
-    public PageResult findAll(@RequestParam Map<String, Object> params){
-        return dynamicRouteService.findAll(params);
+    public Mono<PageResult>  findAll(@RequestParam Map<String, Object> params){
+        return Mono.just(dynamicRouteService.findAll(params));
     }
 
     //同步redis数据 从mysql中同步过去
     @GetMapping("/synchronization")
-    public Result synchronization() {
-        return Result.succeed(dynamicRouteService.synchronization());
+    public Mono<Result>  synchronization() {
+        return Mono.just(Result.succeed(dynamicRouteService.synchronization()));
     }
 
 
     //修改路由状态
     @GetMapping("/updateFlag")
-    public Result updateFlag(@RequestParam Map<String, Object> params) {
-        return Result.succeed(dynamicRouteService.updateFlag(params));
+    public Mono<Result>  updateFlag(@RequestParam Map<String, Object> params) {
+        return Mono.just(Result.succeed(dynamicRouteService.updateFlag(params)));
     }
 
 

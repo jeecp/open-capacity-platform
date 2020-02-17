@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: test-common-spring-boot-starter
+  rabbitmq:
+    virtual-host: /
+    host: 127.0.0.1
+    port: 5777
+    username: guest
+    password: guest
+    listener:
+      simple:
+        concurrency: 5
+        max-concurrency: 15
+        prefetch: 10 
+        
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -94,4 +94,9 @@ public abstract class AbstractFileService implements FileService {
         PageInfo<FileInfo> pageInfo = new PageInfo<>(list);
 		return PageResult.<FileInfo>builder().data(pageInfo.getList()).code(0).count(pageInfo.getTotal()).build();
 	}
+
+	@Override
+	public void unZip(String filePath, String descDir) throws RuntimeException {
+
+	}
 }

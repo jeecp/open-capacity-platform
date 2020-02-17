@@ -1,0 +1,12 @@
+server:
+  port: 8585
+
+spring:
+  application:
+    name: transaction-consumer
+
+rocketmq:
+  name-server: 192.168.235.170:9876    #;130.75.131.246:9876
+  producer:
+    group: test-trans-group
+    send-message-timeout: 12000

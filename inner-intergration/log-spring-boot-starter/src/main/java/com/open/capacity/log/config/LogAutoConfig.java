@@ -1,7 +1,6 @@
 package com.open.capacity.log.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -13,7 +12,6 @@ import com.open.capacity.log.interceptor.LogInterceptor;
  * 日志拦截器，排除对spring cloud gateway的影响 (WebMvcConfigurer)
  * 
  */
-@Configuration
 @ConditionalOnClass(WebMvcConfigurer.class)
 public class LogAutoConfig implements WebMvcConfigurer {
  

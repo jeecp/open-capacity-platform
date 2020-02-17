@@ -110,7 +110,7 @@ layui.define(['config', 'layer'], function (exports) {
                     var token = config.getToken();
                     if (token) {
                         // xhr.setRequestHeader('Authorization', 'Basic ' + token.access_token);
-                        xhr.setRequestHeader('Authorization', 'bearer ' + token.access_token);
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
                     }
 
 //                    此时发送一个refresh_token

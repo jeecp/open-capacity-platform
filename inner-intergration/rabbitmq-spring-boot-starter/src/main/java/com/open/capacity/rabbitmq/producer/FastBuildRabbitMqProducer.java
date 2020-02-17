@@ -1,18 +1,20 @@
 package com.open.capacity.rabbitmq.producer;
 
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
+
+import org.springframework.amqp.rabbit.connection.Connection;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+
 import com.open.capacity.rabbitmq.cache.RetryCache;
 import com.open.capacity.rabbitmq.common.DetailResponse;
 import com.open.capacity.rabbitmq.common.FastOcpRabbitMqConstants;
 import com.rabbitmq.client.Channel;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.connection.Connection;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.rabbit.support.CorrelationData;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Coder编程

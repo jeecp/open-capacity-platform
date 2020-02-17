@@ -1,0 +1,16 @@
+server:
+  port: 8888
+rocketmq:
+  name-server: 192.168.235.170:9876    #;130.75.131.246:9876
+  producer:
+    group: test-group
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always   
+    

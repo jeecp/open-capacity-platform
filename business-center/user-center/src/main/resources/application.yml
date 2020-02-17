@@ -8,12 +8,12 @@ spring:
         url: jdbc:mysql://59.110.164.254:3306/user-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false 
         username: root
         password: root
-        driver-class-name:  com.mysql.jdbc.Driver
+        driver-class-name:  com.mysql.cj.jdbc.Driver
       log:
         url: jdbc:mysql://59.110.164.254:3306/log-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false 
         username: root
         password: root
-        driver-class-name:  com.mysql.jdbc.Driver  
+        driver-class-name:  com.mysql.cj.jdbc.Driver  
       #连接池配置(通常来说，只需要修改initialSize、minIdle、maxActive
       initial-size: 1
       max-active: 20
@@ -69,7 +69,7 @@ spring:
     host: 59.110.164.254
     port: 6379    
     timeout: 6000
-    database: 3
+    database: 1
     lettuce:
       pool:
         max-active: 10 # 连接池最大连接数（使用负值表示没有限制）,如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)

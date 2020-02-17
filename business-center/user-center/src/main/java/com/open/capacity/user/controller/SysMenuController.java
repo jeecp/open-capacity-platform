@@ -35,7 +35,9 @@ import com.open.capacity.user.service.SysMenuService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @Api(tags = "MENU API")
 @RequestMapping("/menus")
@@ -63,7 +65,7 @@ public class SysMenuController {
 				menuService.delete(id);
 				return Result.succeed("操作成功");
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				log.error("SysMenuController->run:{}" ,ex.getMessage());
 				return Result.failed("操作失败");
 			}
 		} catch (Exception e) {

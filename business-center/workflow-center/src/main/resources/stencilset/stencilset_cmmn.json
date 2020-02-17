@@ -1,4 +1,5 @@
 {
+
   "title" : "CMMN editor",
   "namespace" : "http://b3mn.org/stencilset/cmmn1.1#",
   "description" : "CMMN case editor",

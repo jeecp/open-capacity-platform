@@ -40,7 +40,7 @@ public class SmsCodeAuthenticationFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) {
 
         // 登录提交的时候验证验证码
-        if (pathMatcher.match("/authentication/sms", request.getRequestURI())) {
+        if (pathMatcher.match("/api-auth/authentication/sms", request.getRequestURI())) {
 
             if (request.getParameter("grant_type")!=null){
                 //短信模式模式需要验证码

@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,10 +19,13 @@ import org.flowable.engine.runtime.Execution;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.image.ProcessDiagramGenerator;
 import org.flowable.task.api.Task;
+import org.flowable.task.service.impl.persistence.entity.TaskEntityImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.common.collect.Lists;
 
 /**
  * 接口申请InterfaceApplyController
@@ -75,7 +79,11 @@ public class InterfaceApplyController {
         	System.out.println("=======1111=============="+ taskService.getVariable(task.getId(), "clientId"));
             System.out.println(task.toString());
         }
-        return tasks.toArray().toString();
+        
+        
+        
+        
+        return tasks.stream().map(x -> x.toString()).collect(Collectors.joining(""));
 
     }
 
@@ -165,4 +173,5 @@ public class InterfaceApplyController {
             }
         }
     }
+    
 }

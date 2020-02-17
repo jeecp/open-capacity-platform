@@ -22,8 +22,6 @@ public interface SysClientService {
     
     List<SysClient> findList(Map<String, Object> params) ;
     
-    List<SysClient> listByUserId(Long userId) ;
-
 
 	Result updateEnabled(Map<String, Object> params);
     

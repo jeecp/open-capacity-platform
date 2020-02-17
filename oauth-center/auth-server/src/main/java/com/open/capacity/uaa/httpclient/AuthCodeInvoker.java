@@ -1,22 +1,11 @@
-//package com.open.capacity.oauth.httpclient;
+//package com.open.capacity.uaa.httpclient;
 //
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import org.apache.http.HttpEntity;
-//import org.apache.http.NameValuePair;
-//import org.apache.http.auth.AuthScope;
-//import org.apache.http.auth.UsernamePasswordCredentials;
-//import org.apache.http.client.CredentialsProvider;
-//import org.apache.http.client.entity.UrlEncodedFormEntity;
 //import org.apache.http.client.methods.CloseableHttpResponse;
 //import org.apache.http.client.methods.HttpGet;
 //import org.apache.http.client.methods.HttpPost;
-//import org.apache.http.impl.client.BasicCredentialsProvider;
 //import org.apache.http.impl.client.CloseableHttpClient;
 //import org.apache.http.impl.client.HttpClientBuilder;
 //import org.apache.http.impl.client.HttpClients;
-//import org.apache.http.message.BasicNameValuePair;
 //import org.apache.http.util.EntityUtils;
 //
 //import com.alibaba.fastjson.JSONObject;
@@ -27,9 +16,9 @@
 //*/
 //public class AuthCodeInvoker {
 //	
-//	private static final String BASE_URL="http://106.13.3.200/api-user/users?page=1&limit=10";
-//	private static final String AUTHORIZE_URL = "http://106.13.3.200/oauth/authorize?client_id=owen&redirect_uri=http://127.0.0.1:9997/dashboard/login&state=abc&scope=app&response_type=code";
-//	private static final String TOKEN_URL = "http://106.13.3.200/oauth/token?grant_type=authorization_code&code=%s&client_id=%s&client_secret=%s&redirect_uri=%s" ;
+//	private static final String BASE_URL="http://127.0.0.1:9200/api-user/users?page=1&limit=10";
+//	private static final String AUTHORIZE_URL = "http://127.0.0.1:9200/api-auth/oauth/authorize?client_id=owen&redirect_uri=http://127.0.0.1:9997/dashboard/login&state=abc&scope=app&response_type=code";
+//	private static final String TOKEN_URL = "http://127.0.0.1:9200/api-auth/oauth/token?grant_type=authorization_code&code=%s&client_id=%s&client_secret=%s&redirect_uri=%s" ;
 //	public static String access_token;
 //
 //	private HttpClientBuilder httpClientBuilder;

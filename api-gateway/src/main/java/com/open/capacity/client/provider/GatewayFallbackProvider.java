@@ -47,17 +47,18 @@ public class GatewayFallbackProvider implements FallbackProvider {
 	@Override
 	public ClientHttpResponse fallbackResponse(String route, Throwable cause){
 
+		log.error("网关执行请求:{}失败,hystrix服务降级处理", route);
 		if(cause instanceof HystrixTimeoutException){
-			return response(HttpStatus.GATEWAY_TIMEOUT);
+			return response(HttpStatus.GATEWAY_TIMEOUT,cause);
 		}else{
-			return this.fallbackResponse();
+			return this.fallbackResponse(cause);
 		}
 	}
 
-	public ClientHttpResponse fallbackResponse(){
-		return this.response(HttpStatus.INTERNAL_SERVER_ERROR);
+	public ClientHttpResponse fallbackResponse(Throwable cause){
+		return this.response(HttpStatus.INTERNAL_SERVER_ERROR,cause);
 	}
-	private ClientHttpResponse response(final HttpStatus status){
+	private ClientHttpResponse response(final HttpStatus status,Throwable cause){
 
 		return new ClientHttpResponse() {
 			@Override
@@ -88,7 +89,7 @@ public class GatewayFallbackProvider implements FallbackProvider {
 				JSONObject r = new JSONObject();
 				try {
 					r.put("resp_code", "9999");
-					r.put("resp_msg", "系统错误，请求失败");
+					r.put("resp_msg", cause.getMessage());
 				} catch (JSONException e) {
 					log.error("系统错误，错误原因:{}" , e.getStackTrace()[0] );
 				}

@@ -69,7 +69,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
 						PathSelectors.regex("/oauth/token/list.*").apply(input)||
 						PathSelectors.regex("/clients.*").apply(input)||
 						PathSelectors.regex("/services.*").apply(input)||
-						PathSelectors.regex("/redis.*").apply(input)
+						PathSelectors.regex("/redis.*").apply(input)||
+						PathSelectors.regex("/authentication.*").apply(input)
 						
 				      )
 				// .paths(PathSelectors.any())

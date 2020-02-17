@@ -9,7 +9,7 @@ spring:
       url: jdbc:mysql://59.110.164.254:3306/iyydb_job?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
       username: root
       password: root
-      driver-class-name:  com.mysql.jdbc.Driver
+      driver-class-name:  com.mysql.cj.jdbc.Driver
       #连接池配置(通常来说，只需要修改initialSize、minIdle、maxActive
       initial-size: 1
       max-active: 20

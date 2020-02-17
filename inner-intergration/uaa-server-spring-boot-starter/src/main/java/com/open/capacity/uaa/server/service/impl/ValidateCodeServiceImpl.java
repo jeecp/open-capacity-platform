@@ -46,7 +46,7 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
 
 				// redis info
 				connection.set(buildKey(deviceId).getBytes(), imageCode.getBytes());
-				connection.expire(buildKey(deviceId).getBytes(), 60*5);
+				connection.expire(buildKey(deviceId).getBytes(), 60L*5L);
 				connection.close();
 
 				return "";

@@ -12,21 +12,21 @@ import com.open.capacity.client.config.GatewaySwaggerProvider;
 
 @Component
 public class GwSwaggerHeaderFilter extends AbstractGatewayFilterFactory {
-    private static final String HEADER_NAME = "X-Forwarded-Prefix";
-
-    @Override
-    public GatewayFilter apply(Object config) {
-        return (exchange, chain) -> {
-            ServerHttpRequest request = exchange.getRequest();
-            String path = request.getURI().getPath();
-            if (!StringUtils.endsWithIgnoreCase(path, GatewaySwaggerProvider.API_URI)) {
-                return chain.filter(exchange);
-            }
-            String basePath = path.substring(0, path.lastIndexOf(GatewaySwaggerProvider.API_URI));
-            ServerHttpRequest newRequest = request.mutate().header(HEADER_NAME, basePath).build();
-            ServerWebExchange newExchange = exchange.mutate().request(newRequest).build();
-            return chain.filter(newExchange);
-        };
-    }
+	 private static final String HEADER_NAME = "X-Forwarded-Prefix";
+	 
+	    @Override
+	    public GatewayFilter apply(Object config) {
+	        return (exchange, chain) -> {
+	            ServerHttpRequest request = exchange.getRequest();
+	            String path = request.getURI().getPath();
+	            if (!StringUtils.endsWithIgnoreCase(path, GatewaySwaggerProvider.API_URI)) {
+	                return chain.filter(exchange);
+	            }
+	            String basePath = path.substring(0, path.lastIndexOf(GatewaySwaggerProvider.API_URI));
+	            ServerHttpRequest newRequest = request.mutate().header(HEADER_NAME, basePath).build();
+	            ServerWebExchange newExchange = exchange.mutate().request(newRequest).build();
+	            return chain.filter(newExchange);
+	        };
+	    }
  
 }

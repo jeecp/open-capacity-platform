@@ -1,29 +1,17 @@
 package com.open.capacity.client.filter;
 
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
-import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpResponse;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 
-import com.alibaba.fastjson.JSONObject;
-import com.open.capacity.client.vo.AuthIgnored;
-import com.open.capacity.log.util.LogUtil;
+import com.open.capacity.client.utils.TokenUtil;
+import com.open.capacity.common.constant.TraceConstant;
+import com.open.capacity.common.constant.UaaConstant;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -42,19 +30,28 @@ public class RequestFilter implements GlobalFilter, Ordered {
 	@Override
 	public int getOrder() {
 		// TODO Auto-generated method stub
-		return -500;
+		return -501;
 	}
 
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 		 
-		String traceId = MDC.get("X-B3-TraceId");
-		MDC.put(LogUtil.LOG_TRACE_ID, traceId);
-		exchange.getRequest().mutate().header("traceid", traceId ).build();
+		String traceId = MDC.get(TraceConstant.LOG_B3_TRACEID);
+		MDC.put(TraceConstant.LOG_TRACE_ID, traceId);
 		
-		log.info("request url = " + exchange.getRequest().getPath().value() + ", traceId = " + traceId);
+		String accessToken = TokenUtil.extractToken(exchange.getRequest());
 		
-        return chain.filter(exchange);
+		//构建head
+		ServerHttpRequest traceHead = exchange.getRequest().mutate()
+				 .header(TraceConstant.HTTP_HEADER_TRACE_ID, traceId )
+				.header(UaaConstant.TOKEN_HEADER, accessToken ).build();
+		//将现在的request 变成 change对象 
+
+		log.info("request url = " + exchange.getRequest().getURI() + ", traceId = " + traceId);
+		
+		ServerWebExchange build = exchange.mutate().request(traceHead).build();
+		
+        return chain.filter(build);
 
 		
 	}

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import com.open.capacity.common.constant.TraceConstant;
 import com.open.capacity.log.util.LogUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,9 +40,9 @@ public class ResponseFilter extends ZuulFilter {
 	@Override public Object run() {
 		RequestContext requestContext = RequestContext.getCurrentContext();
 		String URL = requestContext.getRequest().getRequestURL().toString();
-		String traceId =  MDC.get("X-B3-TraceId") ;
+		String traceId =  MDC.get(TraceConstant.LOG_B3_TRACEID) ;
 		log.info("response url " + URL + ", traceId = " + traceId);
-		requestContext.getResponse().addHeader(LogUtil.HTTP_HEADER_TRACE_ID, traceId); 
+		requestContext.getResponse().addHeader(TraceConstant.HTTP_HEADER_TRACE_ID, traceId); 
 		return null;
 	}
 	}

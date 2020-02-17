@@ -27,6 +27,7 @@ import com.open.capacity.uaa.service.SysServiceService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Author: [gitgeek]
@@ -35,6 +36,7 @@ import io.swagger.annotations.ApiOperation;
  * @Version: [1.0.0]
  * @Copy: [com.zzg]
  */
+@Slf4j
 @RestController
 @Api(tags = "SERVICE API")
 @RequestMapping("/services")
@@ -86,7 +88,7 @@ public class SysServiceController {
             sysServiceService.delete(id);
 
         }catch (Exception ex){
-            ex.printStackTrace();
+        	log.error("SysServiceController->delete:{}" ,ex.getMessage());
             return Result.failed("操作失败");
         }
         return Result.succeed("操作成功");
@@ -106,7 +108,7 @@ public class SysServiceController {
             }
             return Result.succeed("操作成功");
         }catch (Exception ex){
-            ex.printStackTrace();
+        	log.error("SysServiceController->saveOrUpdate:{}" ,ex.getMessage());
             return Result.failed("操作失败");
         }
     }

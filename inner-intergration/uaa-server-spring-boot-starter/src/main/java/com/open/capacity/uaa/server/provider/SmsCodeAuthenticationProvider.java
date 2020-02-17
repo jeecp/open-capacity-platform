@@ -1,6 +1,5 @@
 package com.open.capacity.uaa.server.provider;
 
-import com.open.capacity.uaa.server.token.SmsCodeAuthenticationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
@@ -11,6 +10,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+
+import com.open.capacity.common.token.SmsCodeAuthenticationToken;
 
 @Component
 public class SmsCodeAuthenticationProvider implements  AuthenticationProvider {

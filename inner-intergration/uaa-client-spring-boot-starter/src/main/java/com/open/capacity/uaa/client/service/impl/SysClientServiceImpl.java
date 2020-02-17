@@ -66,7 +66,7 @@ public class SysClientServiceImpl implements SysClientService {
         	log.info("clientId:{},{}", clientId, clientId );
         }catch (InvalidClientException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error("SysClientServiceImpl->cacheAndGetClient: {}", e.getMessage() );
         }
 
         return client;

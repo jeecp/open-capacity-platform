@@ -2,6 +2,7 @@ package com.open.capacity.uaa.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -43,7 +44,7 @@ public class RedisController {
         Object o = redisTemplate.execute(new RedisCallback() {
             @Override
             public Object doInRedis(RedisConnection connection) throws DataAccessException {
-                return connection.info("memory").get("used_memory");
+                return Optional.ofNullable(connection.info("memory")).orElseThrow(RuntimeException::new).get("used_memory");
             }
         });
         map.put("used_memory", o);

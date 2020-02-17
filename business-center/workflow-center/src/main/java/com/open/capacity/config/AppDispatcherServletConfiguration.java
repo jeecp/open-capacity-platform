@@ -21,7 +21,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Configuration
-@ComponentScan(value = {"org.flowable.ui.modeler.rest.app"},
+@ComponentScan(value = {"org.flowable.ui.modeler.rest.app"
+        ,"org.flowable.ui.common.service.idm"
+        ,"org.flowable.idm"
+        },
         excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = StencilSetResource.class),
                 @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = EditorUsersResource.class),
@@ -37,6 +40,7 @@ public class AppDispatcherServletConfiguration implements WebMvcRegistrations {
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
+
         log.debug("Configuring localeChangeInterceptor");
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("language");

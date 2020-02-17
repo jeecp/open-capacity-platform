@@ -1,5 +1,7 @@
 package com.open.capacity.config;
 
+import org.flowable.spring.boot.app.FlowableAppProperties;
+import org.flowable.ui.common.properties.FlowableCommonAppProperties;
 import org.flowable.ui.common.service.idm.RemoteIdmService;
 import org.flowable.ui.modeler.properties.FlowableModelerAppProperties;
 import org.flowable.ui.modeler.servlet.ApiDispatcherServletConfiguration;
@@ -18,13 +20,19 @@ import org.springframework.web.servlet.DispatcherServlet;
  * @date 2019/7/28 16:56
  */
 @Configuration
-@EnableConfigurationProperties({FlowableModelerAppProperties.class})
+@EnableConfigurationProperties({FlowableModelerAppProperties.class
+        })
 @ComponentScan(basePackages = {
         "org.flowable.ui.modeler.repository",
         "org.flowable.ui.modeler.service",
         "org.flowable.ui.common.service",
         "org.flowable.ui.common.repository",
-        "org.flowable.ui.common.tenant"},
+        "org.flowable.ui.common.tenant"
+
+        ,"org.flowable.ui.common.service.idm"
+        ,"org.flowable.idm"
+
+        },
         excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = RemoteIdmService.class)
         })

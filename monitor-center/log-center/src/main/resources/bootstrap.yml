@@ -21,17 +21,17 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone:  http://127.0.0.1:1111/eureka  #http://130.75.131.241:8761/eureka,http://130.75.131.248:8762/eureka
+      defaultZone:  http://ocp:ocp2019@127.0.0.1:1111/eureka  #http://130.75.131.241:8761/eureka,http://130.75.131.248:8762/eureka
       #http://134.224.249.33:1111/eureka/  正式库
       #http://134.224.249.33:1111/eureka/  测试库
       #http://127.0.0.1:8761/eureka,http://127.0.0.1:8762/eureka
-    registry-fetch-interval-seconds: 10  
-    instance-info-replication-interval-seconds: 10  
+    registry-fetch-interval-seconds: 5
+    instance-info-replication-interval-seconds: 10
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}  #固定端口
 #    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${randomServerPort.value[5000,5005]}}  #随机端口
     #instance-id: ${spring.application.name}:${docker.ipAddress}:${spring.application.instance_id:${server.port}}
-    lease-renewal-interval-in-seconds: 5  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
+    lease-renewal-interval-in-seconds: 10  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
     lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除
     status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/document.html # ${server.port}为该服务的端口号    

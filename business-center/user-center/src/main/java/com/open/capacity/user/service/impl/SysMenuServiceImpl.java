@@ -29,20 +29,28 @@ public class SysMenuServiceImpl implements SysMenuService {
 	@Transactional
 	@Override
 	public void save(SysMenu menu)  throws ServiceException{
-		menu.setCreateTime(new Date());
-		menu.setUpdateTime(menu.getCreateTime());
+		try {
+			menu.setCreateTime(new Date());
+			menu.setUpdateTime(menu.getCreateTime());
 
-		menuDao.save(menu);
-		log.info("新增菜单：{}", menu);
+			menuDao.save(menu);
+			log.info("新增菜单：{}", menu);
+		} catch (Exception e) {
+			throw new ServiceException(e) ;
+		}
 	}
 
 	@Transactional
 	@Override
 	public void update(SysMenu menu)  throws ServiceException {
-		menu.setUpdateTime(new Date());
+		try {
+			menu.setUpdateTime(new Date());
 
-		menuDao.updateByOps(menu);
-		log.info("修改菜单：{}", menu);
+			menuDao.updateByOps(menu);
+			log.info("修改菜单：{}", menu);
+		} catch (Exception e) {
+			throw new ServiceException(e) ;
+		}
 	}
 
 	@Transactional

@@ -11,14 +11,14 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://127.0.0.1:1111/eureka/
+      defaultZone: http://ocp:ocp2019@127.0.0.1:1111/eureka/
       #http://192.168.3.170:1111/eureka,http://192.168.3.171:1111/eureka,http://192.168.3.173:1111/eureka
       #http://130.75.131.243:1111/eureka/,http://130.75.131.244:1111/eureka/,http://130.75.131.245:1111/eureka/  
-    registry-fetch-interval-seconds: 10  
-    instance-info-replication-interval-seconds: 10   
+    registry-fetch-interval-seconds: 5
+    instance-info-replication-interval-seconds: 10
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
 #    instance-id: ${spring.application.name}:${docker.ipAddress}:${spring.application.instance_id:${server.port}}
-    lease-renewal-interval-in-seconds: 5
+    lease-renewal-interval-in-seconds: 10
      

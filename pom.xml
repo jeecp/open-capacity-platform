@@ -47,23 +47,23 @@
 		<log4j2.version>2.1</log4j2.version>
 		<jasypt.version>1.14</jasypt.version>
 		<hutool.version>4.1.13</hutool.version>
-		<fastjson.version>1.2.47</fastjson.version>
+		<fastjson.version>1.2.60</fastjson.version>
   		<disruptor.version>3.4.1</disruptor.version>
   		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<docker.host>http://59.110.164.254:5555</docker.host>
 		<docker.image.prefix>owenwangwen</docker.image.prefix>
-		<spring-boot.version>2.0.4.RELEASE</spring-boot.version>
+		<spring-boot.version>2.1.7.RELEASE</spring-boot.version>
 		<net-devh-grpc.version>2.0.1.RELEASE</net-devh-grpc.version>
 		<spring-platform.version>Cairo-SR3</spring-platform.version>
 		<spring.social.version>1.1.6.RELEASE</spring.social.version>
 		<spring-security.version>5.1.1.RELEASE</spring-security.version>
-		<security-oauth2.version>2.3.4.RELEASE</security-oauth2.version>
+		<security-oauth2.version>2.3.6.RELEASE</security-oauth2.version>
 		<commons-collections4.version>4.1</commons-collections4.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<hibernate-validator.verion>5.0.2.Final</hibernate-validator.verion>
 		<flowable.version>6.4.1</flowable.version>
-		<spring-cloud-dependencies.version>Finchley.SR2</spring-cloud-dependencies.version>
+		<spring-cloud-dependencies.version>Greenwich.SR3</spring-cloud-dependencies.version>
 
 
 		
@@ -177,7 +177,12 @@
 				<artifactId>swagger-spring-boot-starter</artifactId>
 				<version>${core.version}</version>
 			</dependency>
-			
+			<!-- 自定义路由策略 -->
+			<dependency>
+				<groupId>com.open.capacity</groupId>
+				<artifactId>ribbon-spring-boot-starter</artifactId>
+				<version>${core.version}</version>
+			</dependency>
 			
 
 		</dependencies>
@@ -224,6 +229,7 @@
 					<include>**/*.xsd</include>
 					<include>**/*.ftl</include>
 					<include>**/*.lua</include>
+					<include>**/*.json</include>
 					<include>processes/*</include>
 					<include>**/spring.factories</include>
 				</includes>

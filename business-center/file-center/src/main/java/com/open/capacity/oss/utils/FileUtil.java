@@ -10,11 +10,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.open.capacity.oss.model.FileInfo;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author 作者 owen E-mail: 624191343@qq.com
  * @version 创建时间：2017年11月12日 上午22:57:51
  * 文件工具类
 */
+@Slf4j
 public class FileUtil {
 
 	public static FileInfo getFileInfo(MultipartFile file) throws Exception {
@@ -41,7 +44,7 @@ public class FileUtil {
 		try {
 			return DigestUtils.md5Hex(inputStream);
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("FileUtil->fileMd5:{}" ,e.getMessage());
 		}
 
 		return null;
@@ -61,7 +64,7 @@ public class FileUtil {
 
 			return path;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("FileUtil->saveFile:{}" ,e.getMessage());
 		}
 
 		return null;

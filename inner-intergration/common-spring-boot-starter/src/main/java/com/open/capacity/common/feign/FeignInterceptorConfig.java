@@ -5,6 +5,7 @@ import org.slf4j.MDC;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.open.capacity.common.constant.TraceConstant;
 import com.open.capacity.common.constant.UaaConstant;
 import com.open.capacity.common.util.TokenUtil;
 
@@ -37,9 +38,9 @@ public class FeignInterceptorConfig {
 				
 
 				//传递traceId
-	            String traceId = StrUtil.isNotEmpty(MDC.get("traceid"))  ?  MDC.get("traceid") :  MDC.get("X-B3-TraceId") ;
+	            String traceId = StrUtil.isNotEmpty(MDC.get(TraceConstant.LOG_TRACE_ID))  ?  MDC.get(TraceConstant.LOG_TRACE_ID) :  MDC.get(TraceConstant.LOG_B3_TRACEID) ;
 	            if (StrUtil.isNotEmpty(traceId)) {
-	                template.header("app_trace_id", traceId);
+	                template.header(TraceConstant.HTTP_HEADER_TRACE_ID, traceId);
 	            }
 
 				

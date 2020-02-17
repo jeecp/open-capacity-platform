@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.open.capacity.common.auth.details.LoginAppUser;
+import com.open.capacity.common.feign.FeignExceptionConfig;
 
 /**
 * @author 作者 owen E-mail: 624191343@qq.com
@@ -12,7 +13,7 @@ import com.open.capacity.common.auth.details.LoginAppUser;
 * 调用用户中心中的userdetail对象，用户oauth中的登录
 * 获取的用户与页面输入的密码 进行BCryptPasswordEncoder匹配
  */
-@FeignClient("user-center")
+@FeignClient(value="user-center",configuration = FeignExceptionConfig.class)
 public interface UserFeignClient {
 
 	/**

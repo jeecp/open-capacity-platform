@@ -38,7 +38,7 @@ public class ResJwtAccessTokenConverter extends JwtAccessTokenConverter{
 				if (map.containsKey(USERNAME)) {
 					Object principal = map.get(USERNAME);
 //					Collection<? extends GrantedAuthority> authorities = getAuthorities(map);
-					LoginAppUser loginUser = null;
+					LoginAppUser loginUser = new LoginAppUser();
 					if (principal instanceof Map) {
 
 						loginUser = BeanUtil.mapToBean((Map) principal, LoginAppUser.class, true);

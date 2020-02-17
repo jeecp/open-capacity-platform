@@ -11,5 +11,7 @@ public enum FileType {
 //	阿里云
 	ALIYUN,
 	// 本地存储
-	LOCAL
+	LOCAL, 
+	//fastdfs存储
+	FASTDFS
 }

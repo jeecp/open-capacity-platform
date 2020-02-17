@@ -107,12 +107,6 @@ public class SysClientServiceImpl implements SysClientService {
 		return sysClientDao.findList(params);
 	}
 
-	@Override
-	public List<SysClient> listByUserId(Long userId) {
-		// TODO Auto-generated method stub
-		return sysClientDao.listByUserId(userId);
-	}
-
 
 
 	@Override

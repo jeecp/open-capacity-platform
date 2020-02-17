@@ -74,7 +74,7 @@ public class RateLimitFilter extends ZuulFilter {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("RateLimitFilter->run:{}" ,e.getMessage());
 		}
 		return null;
 	}

@@ -21,8 +21,8 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 @Component
 @Primary
 @AllArgsConstructor
-public class GatewaySwaggerProvider implements SwaggerResourcesProvider {
-	public static final String API_URI = "/v2/api-docs";
+public class GatewaySwaggerProvider  implements SwaggerResourcesProvider {
+    public static final String API_URI = "/v2/api-docs";
     private final RouteLocator routeLocator;
     private final GatewayProperties gatewayProperties;
  
@@ -50,5 +50,6 @@ public class GatewaySwaggerProvider implements SwaggerResourcesProvider {
         swaggerResource.setSwaggerVersion("2.0");
         return swaggerResource;
     }
+
 
 }

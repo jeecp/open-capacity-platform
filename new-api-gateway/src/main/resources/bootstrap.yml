@@ -6,6 +6,8 @@ server:
 spring:
   application:
       name: new-api-gateway
+  main:
+    allow-bean-definition-overriding: true    
  
 
 management:

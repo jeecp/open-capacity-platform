@@ -8,28 +8,31 @@
   <artifactId>api-gateway</artifactId>
   
   <dependencies> 
+  		<!-- mysql -->
   		<dependency>
   			<groupId>com.open.capacity</groupId>
   			<artifactId>db-spring-boot-starter</artifactId>
   		</dependency>
   		
-  		
+  		<!-- redis -->
   		<dependency>
   			<groupId>com.open.capacity</groupId>
   			<artifactId>redis-spring-boot-starter</artifactId>
   		</dependency>
   		
+  		<!-- 日志组件 -->
 		<dependency>
   			<groupId>com.open.capacity</groupId>
   			<artifactId>log-spring-boot-starter</artifactId>
   		</dependency>
   		
-  		
+  		<!-- 公共API -->
   		<dependency>
   			<groupId>com.open.capacity</groupId>
   			<artifactId>common-spring-boot-starter</artifactId>
   		</dependency>
   		
+  		<!-- 资源服务器  -->
   		<dependency>
   			<groupId>com.open.capacity</groupId>
   			<artifactId>uaa-client-spring-boot-starter</artifactId>
@@ -45,6 +48,12 @@
 		 <dependency>
   			<groupId>com.open.capacity</groupId>
   			<artifactId>swagger-spring-boot-starter</artifactId>
+  		</dependency>
+
+
+		<dependency>
+  			<groupId>com.open.capacity</groupId>
+  			<artifactId>ribbon-spring-boot-starter</artifactId>
   		</dependency>
 
 		 <dependency>

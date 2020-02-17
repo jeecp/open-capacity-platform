@@ -67,10 +67,12 @@ public class SecurityUtils {
 
     public static boolean currentUserHasCapability(String capability) {
         FlowableAppUser user = getCurrentFlowableAppUser();
-        for (GrantedAuthority grantedAuthority : user.getAuthorities()) {
-            if (capability.equals(grantedAuthority.getAuthority())) {
-                return true;
-            }
+        if(user!=null){
+	        for (GrantedAuthority grantedAuthority : user.getAuthorities()) {
+	            if (capability.equals(grantedAuthority.getAuthority())) {
+	                return true;
+	            }
+	        }
         }
         return false;
     }

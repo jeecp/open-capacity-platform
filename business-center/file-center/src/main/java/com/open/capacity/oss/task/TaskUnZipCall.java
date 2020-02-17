@@ -26,8 +26,7 @@ public class TaskUnZipCall implements Callable<Boolean> {
     public Boolean call() {
 
         //线程执行任务
-        InputStream in = null;
-        try {
+        try ( InputStream in = zip.getInputStream(entry)){
             String outPath = (descDir + entry.getName()).replace("/", File.separator);
             //判断路径是否存在,不存在则创建文件路径
             File file = new File(outPath.substring(0, outPath.lastIndexOf(File.separator)));
@@ -38,19 +37,14 @@ public class TaskUnZipCall implements Callable<Boolean> {
             if (new File(outPath).isDirectory()) {
                 return true;
             }
-            in = zip.getInputStream(entry);
-
-            OutputStream out = new FileOutputStream(outPath);
-//            byte[] buf1 = new byte[52428800];//1073741824
-//            byte[] buf1 = new byte[5242880];//1073741824
-            byte[] buf1 = new byte[1048576];//1073741824
-            int len;
-            while ((len = in.read(buf1)) > 0) {
-                out.write(buf1, 0, len);
+            try(   OutputStream out = new FileOutputStream(outPath)){
+            	 byte[] buf1 = new byte[1048576];//1073741824
+                 int len;
+                 while ((len = in.read(buf1)) > 0) {
+                     out.write(buf1, 0, len);
+                 }
             }
-            in.close();
-            out.close();
-
+            
             return true;
         } catch (IOException e) {
             return false;

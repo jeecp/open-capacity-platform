@@ -12,6 +12,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -31,7 +32,8 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 /**
- * Created by owen on 2018/12/10. 根据应用 url 限流 oauth_client_details if_limit 限流开关
+ * Created by owen on 2018/12/10. 
+ * 根据应用 url 限流 oauth_client_details if_limit 限流开关
  * limit_count 阈值
  */
 @Slf4j
@@ -75,7 +77,6 @@ public class RateLimitFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-       
     	String accessToken = extractToken(exchange.getRequest());
         if (!checkRateLimit(exchange, accessToken)) {
                 log.error("TOO MANY REQUESTS!");
@@ -90,7 +91,9 @@ public class RateLimitFilter implements GlobalFilter, Ordered {
                 response.setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
                 //指定编码，否则在浏览器中会中文乱码
                 response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-                return response.writeWith(Mono.just(buffer));
+                return response.writeWith(Mono.just(buffer)).doOnError((error) -> {
+                    DataBufferUtils.release(buffer);
+                });
 
         }
 

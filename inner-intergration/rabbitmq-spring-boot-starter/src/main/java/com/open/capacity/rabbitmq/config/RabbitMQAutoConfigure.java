@@ -1,6 +1,5 @@
 package com.open.capacity.rabbitmq.config;
 
-import com.open.capacity.rabbitmq.producer.FastBuildRabbitMqProducer;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -11,6 +10,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.open.capacity.rabbitmq.producer.FastBuildRabbitMqProducer;
 
 /**
  * @author Coder编程

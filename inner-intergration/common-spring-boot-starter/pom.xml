@@ -8,6 +8,10 @@
   <artifactId>common-spring-boot-starter</artifactId>
   <description>公共支撑</description>
   
+  <properties>
+		<orika-version>1.5.2</orika-version>
+		<modelmapper-version>2.3.3</modelmapper-version>
+  </properties>
   
 	<dependencies>
 
@@ -51,11 +55,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
-		
+		<!-- orika core工具对实体（Bean）进行深度拷贝 -->
 		 <dependency>
 			<groupId>ma.glasnost.orika</groupId>
 			<artifactId>orika-core</artifactId>
-			<version>1.5.2</version>
+			<version>${orika-version}</version>
 		</dependency>
 		
 		<dependency>
@@ -67,7 +71,12 @@
 			<artifactId>commons-io</artifactId>
 		</dependency>
 	 
- 		
+ 		 <!-- time -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+        
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -103,7 +112,11 @@
 			<version>${fastjson.version}</version>
 		</dependency>
 		
-
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>${modelmapper-version}</version>
+		</dependency>
 	</dependencies>
 	
 </project>

@@ -1,5 +1,9 @@
 package com.open.capacity.redis.test.controller;
 
+import java.util.concurrent.TimeUnit;
+
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +18,8 @@ public class TestController {
 	private RedisUtil redisUtil ;
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate ;
+	@Autowired
+	private RedissonClient  redissonClient ;
 	
 	@GetMapping("/test")
 	public String opt(){
@@ -56,4 +62,32 @@ public class TestController {
 		
 		return "ok" ; 
 	}
+	
+	@GetMapping("/testLock")
+	public String lock(){
+		
+
+		RLock lock = redissonClient.getLock("anyLock");
+
+		lock.lock();
+
+		try {
+				System.out.println(lock);
+				Thread.sleep(TimeUnit.SECONDS.toMillis(30));
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+		    lock.unlock();
+		}
+		
+		
+		
+		 
+		
+		return "ok" ;
+	}
+	 
+	
 }

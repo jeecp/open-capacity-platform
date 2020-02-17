@@ -29,7 +29,7 @@ public interface SysClientDao {
 
     List<SysClient> findList(@Param("params") Map<String, Object> params );
 
-    @Select("select id id , client_id clientId , resource_ids resourceIds ,client_secret clientSecret ,web_server_redirect_uri webServerRedirectUri  from oauth_client_details t where t.id = #{id}  ")
+    @Select("select id id , client_id clientId , resource_ids resourceIds ,client_secret clientSecret,client_secret_str clientSecretStr ,web_server_redirect_uri webServerRedirectUri  from oauth_client_details t where t.id = #{id}  ")
     SysClient getById(Long id);
 
     @Select("select * from oauth_client_details t where t.client_id = #{clientId}  ")
@@ -38,15 +38,10 @@ public interface SysClientDao {
     @Update("update oauth_client_details t set t.client_secret = #{clientSecret},t.client_secret_str = #{clientSecretStr} ,t.`status` = #{status} where t.id = #{id}")
     int update(SysClient client);
 
-    @Select("select * from sys_role r inner join sys_role_user ru on r.id = ru.roleId where ru.userId = #{userId}")
-    List<SysClient> listByUserId(Long userId);
-
 
 
     @Delete("delete from oauth_client_details where id = #{id}")
     int delete(Long id);
 
-    @Delete("delete from sys_role_user where roleId = #{clientId}")
-    int deleteRoleUser(Long clientId);
 
 }

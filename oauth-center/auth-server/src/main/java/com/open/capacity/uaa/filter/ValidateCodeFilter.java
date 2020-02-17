@@ -54,7 +54,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 		// 登录提交的时候验证验证码 配置打开验证开关
 		if(validFlag){
 			
-			if (pathMatcher.match("/oauth/token", request.getRequestURI())) {
+			if (pathMatcher.match("/api-auth/oauth/token", request.getRequestURI())) {
 
 				 if (request.getParameter("grant_type")!=null){
 					//密码模式需要验证码

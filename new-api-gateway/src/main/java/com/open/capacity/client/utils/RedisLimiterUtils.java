@@ -106,7 +106,7 @@ public class RedisLimiterUtils {
 
         if (!redisUtil.hasKey(time_key) || redisUtil.getExpire(time_key) <= 0) {
             //当天首次访问，初始化访问计数=0，有效期24h
-            redisUtil.set(time_key, identifier, 24 * 60 * 60);
+            redisUtil.set(time_key, identifier, 24L * 60L * 60L);
             redisUtil.set(counter_key, 0);
         }
 

@@ -1,0 +1,7 @@
+rocketmq:
+  name-server: 192.168.235.170:9876    #;130.75.131.246:9876
+  producer:
+    group: test-group
+    send-message-timeout: 12000
+    retry-times-when-send-failed: 0
+    retry-times-when-send-async-failed: 0

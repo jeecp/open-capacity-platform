@@ -1,8 +1,10 @@
-
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0810/170317_e33b6c75_869801.png "屏幕截图.png")
-
 # [![Fork me on Gitee](https://gitee.com/owenwangwen/open-capacity-platform/widgets/widget_5.svg)](https://gitee.com/owenwangwen/open-capacity-platform)open-capacity-platform 微服务能力开放平台 
 
+<p align="center"> 
+ <img src="https://img.shields.io/circleci/project/vuejs/vue/dev.svg" alt="Build Status">
+  <img src="https://img.shields.io/badge/Spring%20Cloud-Greenwich.SR2.RELEASE-blue.svg" alt="Coverage Status">
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.1.3.RELEASE-blue.svg" alt="Downloads">
+</p>
 
 [![star](https://gitee.com/owenwangwen/open-capacity-platform/badge/star.svg?theme=white)](https://gitee.com/owenwangwen/open-capacity-platform/stargazers)
 [![Fork me on Gitee](https://gitee.com/owenwangwen/open-capacity-platform/widgets/widget_6.svg)](https://gitee.com/owenwangwen/open-capacity-platform)
@@ -26,23 +28,31 @@ http://59.110.164.254:8066/login.html  admin/admin
 
 
 # **监控演示** #
-<a target="_blank" href="http://106.13.3.200/verynginx/index.html">**实时监控**</a> 用户名/密码：verynginx/verynginx       
-<a target="_blank" href="http://106.13.3.200:3000/#">**grafana监控**</a> 用户名/密码：admin/1q2w3e4r    
+<a target="_blank" href="http://47.98.236.203/verynginx/index.html">**实时监控**</a> 用户名/密码：verynginx/verynginx       
+<a target="_blank" href="http://47.98.236.203:3000/#">**grafana监控**</a> 用户名/密码：admin/1q2w3e4r    
 
 # 开发手册  
  [https://www.kancloud.cn/owenwangwen/open-capacity-platform/content](https://www.kancloud.cn/owenwangwen/open-capacity-platform/content)
 
 ### 欢迎进群（大佬云集）
-`一键加群`
+
+<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=4eb3e891564dba87ff097d2ca403bf8c2ceb9244f198692feda5d0dd424b9457"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ocp&amp;cp微服务" title="ocp&amp;cp微服务"></a>  
+
 <table>
 	<tr>
-            <td><img src=https://images.gitee.com/uploads/images/2019/0604/143151_36a5c07e_869801.png "屏幕截图.png" />
+            <td><img src=https://images.gitee.com/uploads/images/2019/1209/121109_59a8822c_869801.png "屏幕截图.png"" />
+			<td><img src=https://images.gitee.com/uploads/images/2019/1209/121142_1f491d9b_869801.png "屏幕截图.png"" />
 	</tr>
 </table>
 
 # 技术介绍
-![image.png](https://upload-images.jianshu.io/upload_images/17103873-bec64504e9d9fdc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
+<table>
+	<tr>
+		<td><img src="https://images.gitee.com/uploads/images/2019/0523/091013_fffdcf8b_869801.png "屏幕截图.png"></td>
+		<td><img src="https://images.gitee.com/uploads/images/2019/0531/151440_a763b84e_869801.png "屏幕截图.png"></td>
+    </tr>
+	
+</table>
 
 # **功能介绍** 
 - 统一安全认证中心
@@ -63,6 +73,7 @@ http://59.110.164.254:8066/login.html  admin/admin
 	- 微服务服务监控
 - 能力开放平台业务支撑
 	- 网关基于应用方式API接口隔离
+	- 网关基于应用限制调用次数
 	- 下游服务基于RBAC权限管理，实现细粒度控制
 	- 代码生成器中心  
 	- 网关聚合服务内部Swagger接口文档
@@ -76,7 +87,7 @@ http://59.110.164.254:8066/login.html  admin/admin
    
 ## 代码结构  
     
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0819/214757_e3408bdc_869801.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1017/224252_368047c9_869801.png "屏幕截图.png")
 
 ## 能力开放管理平台   
 
@@ -130,12 +141,31 @@ http://59.110.164.254:8066/login.html  admin/admin
 </table>
  
 #  APM监控
- 
-![image.png](https://upload-images.jianshu.io/upload_images/17103873-1fd5f5ad339f81d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![image.png](https://upload-images.jianshu.io/upload_images/17103873-e3b293a71b100b9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+<table>
+	<tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0330/105610_52def254_869801.png "屏幕截图.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0330/105638_5c7ab9ac_869801.png "屏幕截图.png"/></td>
+    </tr>
+	<tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0330/105713_c9c94365_869801.png "屏幕截图.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0330/105736_ac478159_869801.png "屏幕截图.png"/></td>
+    </tr>
+     
+</table>
 
 # 系统监控 #
-![image.png](https://upload-images.jianshu.io/upload_images/17103873-dde6f10a37ae6e5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)|![image.png](https://upload-images.jianshu.io/upload_images/17103873-a8c2ea37b57c5119.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+<table>
+	<tr>
+		<td><img src="https://images.gitee.com/uploads/images/2019/0523/085501_ee047496_869801.png "屏幕截图.png""/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0401/230332_f777ea8d_869801.png "屏幕截图.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0401/230430_3eb6b5e0_869801.png "屏幕截图.png"/></td>
+    </tr>
+	<tr>
+		<td><img src="https://images.gitee.com/uploads/images/2019/0722/164150_6c0ce093_869801.png "屏幕截图.png"/></td>
+		<td><img src="https://images.gitee.com/uploads/images/2019/0722/163241_9b29852f_869801.png "屏幕截图.png""/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0722/163356_08ec244d_869801.png "屏幕截图.png"/></td>
+    </tr>
+</table>
 
 #  灰度发布功能演示   
  
@@ -175,8 +205,15 @@ https://gitee.com/owenwangwen/config-center
 阿波罗官方地址   
 https://github.com/ctripcorp/apollo  
 
-# Spring Cloud Alibaba 初探
+# Spring Cloud Alibaba 版本
 https://gitee.com/owenwangwen/open-capacity-platform/tree/alibaba
+
+# vue 版本
+vue 前端：https://gitee.com/owenwangwen/jeecp  
+vue 后端：https://gitee.com/owenwangwen/open-capacity-platform/tree/vue/
+
+# oracle 版本
+https://gitee.com/owenwangwen/open-capacity-platform/tree/oracle/
 
 # 用户权益 #
 - 允许免费用于学习、毕设、公司项目、私活等。
